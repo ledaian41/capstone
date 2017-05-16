@@ -30,7 +30,7 @@
         <!--HEADER-->
         <%@include file="../header.jsp" %>
         <!--END HEADER-->
-
+        <!--MAIN CONTENT-->
         <div class="container" style="margin-top: 100px;">
             <!--            LeftSide Bar-->
             <nav class="leftSideBar">
@@ -149,8 +149,7 @@
                 </div>
             </div>
         </div>
-
-
+        <!--END MAIN CONTENT-->
         <!--FOOTER-->
         <%@include file="../footer.jsp" %>
         <!--END FOOTER-->
