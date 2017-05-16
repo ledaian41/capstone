@@ -29,15 +29,15 @@
              });
          });
             //ADD REMOVE PADDING CLASS ON SCROLL
-            $(window).scroll(function () {
-                if ($(".navbar").offset().top >40) {
-                    $(".navbar-fixed-top").addClass("navbar-pad-original");
-                } else {
-                    $(".navbar-fixed-top").removeClass("navbar-pad-original");
-                }
-            });
-       
-
+//            $(window).scroll(function () {
+//                if ($(".navbar").offset().top >40) {
+//                    $(".navbar-fixed-top").addClass("navbar-pad-original");
+//                } else {
+//                    $(".navbar-fixed-top").removeClass("navbar-pad-original");
+//                }
+//            });
+//       
+//           
 
             /*====================================
                WRITE YOUR SCRIPTS BELOW 
@@ -62,10 +62,10 @@
          
     $(document).ready(function(){                    
         $(window).scroll(function(){                          
-            if ($(this).scrollTop() > 200) {
-                $('#menu').fadeOut(500);
+            if ($(this).scrollTop() > 10) {
+                $('#menu').fadeOut(20);
             } else {
-                $('#menu').fadeIn(500);
+                $('#menu').fadeIn(20);
             }
         });
     });

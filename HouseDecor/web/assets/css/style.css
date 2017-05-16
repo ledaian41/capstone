@@ -235,7 +235,7 @@ font-size: 14px;
     background: #fff;
     height: 43px;
     border-top: none;
-    border-bottom: 1px solid #e6e6e6;
+/*    border-bottom: 1px solid #e6e6e6;*/
     width: 100%;
     position: relative;
     z-index: 1;
