@@ -47,6 +47,30 @@
                     </ul>
                 </div>
             </div>
+            <div class="houzz-header-secondary">
+                <ul class="header-nav-rooms">
+                    <li class="header-nav-room">
+                        <a class="menu-title" href="">
+                            <span class="fa fa-picture-o fa">Photos</span>
+                        </a>
+                    </li>
+                    <li class="header-nav-room">
+                        <a class="menu-title" href="">
+                            <span class="fa fa-archive fa">Shop By Department</span>
+                        </a>
+                    </li>
+                    <li class="header-nav-room">
+                        <a class="menu-title" href="">
+                            <span class="fa fa-user fa">Find Professional</span>
+                        </a>
+                    </li>
+                    <li class="header-nav-room">
+                        <a class="menu-title" href="" style="color: #4cae4c">
+                            <span class="fa fa-gift fa">Sale</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <!--END NAVBAR SECTION-->
     </body>

@@ -263,4 +263,6 @@ font-size: 14px;
 .menu-title {
     padding-left: 37px;
     padding-right: 37px;
+    font-size: 16px;
+    color: black;
 }
