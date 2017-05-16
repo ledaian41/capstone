@@ -186,19 +186,21 @@ font-size: 14px;
 
 /* sidebar */
 .rightSideContent{
-    width: 664px;
+    width: 864px;
     float: left;
-    border: 0.5px solid #000;
+    background-color: #fff;
+    border: 1px solid;
+    border-color: #ddd;
     margin-top: 30px;
     margin-left: 10px;
-    
 }
 .leftSideBar{
     float: left;
     background: #fff;
     margin-top: 30px;
     width: 220px;
-    border: 0.5px solid #000;
+    border: 1px solid;
+    border-color: #ddd;
 }
 .sidebar {
     padding-top: 0px;
