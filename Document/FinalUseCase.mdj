@@ -51634,10 +51634,10 @@
 							"showShadow": true,
 							"containerChangeable": false,
 							"containerExtending": false,
-							"left": 1040,
-							"top": 1392,
+							"left": 1072,
+							"top": 1384,
 							"width": 177,
-							"height": 193,
+							"height": 57,
 							"autoResize": false,
 							"text": "Search order by product ID, order ID and filter by store ID, show items .... ",
 							"wordWrap": true
@@ -51664,7 +51664,7 @@
 								"$ref": "AAAAAAFcDCidmJda64w="
 							},
 							"lineStyle": 1,
-							"points": "1060:1391;996:1299"
+							"points": "1121:1383;1007:1299"
 						}
 					]
 				},
