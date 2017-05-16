@@ -186,7 +186,8 @@ font-size: 14px;
 
 /* sidebar */
 .rightSideContent{
-    width: 664px;
+    width: 864px;
+    background: #fff;
     float: left;
     border: 0.5px solid #000;
     margin-top: 30px;
@@ -227,4 +228,37 @@ font-size: 14px;
 .option-text{
     color: #080808;
     box-sizing: border-box;
+}
+.houzz-header-secondary {
+    background: #fff;
+    height: 43px;
+    border-top: none;
+    border-bottom: 1px solid #e6e6e6;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    left: 0;
+    right: 0;
+   
+}
+.houzz-header-secondary .header-nav-rooms {
+    list-style: none;
+    margin: 0 auto;
+    white-space: nowrap;
+    text-align: center;
+    min-width: 1000px;
+    position: relative;
+}
+.houzz-header-secondary .header-nav-rooms .header-nav-room {
+    display: inline-block;
+    zoom: 1;
+    position: static;
+}
+ .houzz-header-secondary .header-nav-rooms .header-nav-room.menu-title {
+    padding-left: 37px;
+    padding-right: 37px;
+}
+.menu-title {
+    padding-left: 37px;
+    padding-right: 37px;
 }
