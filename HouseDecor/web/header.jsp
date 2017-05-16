@@ -1,7 +1,7 @@
 <%-- 
     Document   : header
     Created on : May 16, 2017, 4:06:41 PM
-    Author     : Lê Đại An
+    Author     : Lòn nào vậy 
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,7 +13,7 @@
     </head>
     <body>
         <!--NAVBAR SECTION-->
-        <div class="navbar navbar-inverse navbar-fixed-top scrollclass" >
+        <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,22 +32,25 @@
                         </form>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#home">HOME</a></li>
                         <li>
-                            <a href="#portfolio">
+                            <a href="#home">HOME</a>
+                        </li>
+                        <li>
+                            <a href="#">
                                 <i class="fa fa-bell-o"></i> 
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="#">
                                 <i class="fa fa-shopping-cart"></i>    
                             </a>
                         </li>
+                        
                         <li><a href="#contact">CONTACT</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="houzz-header-secondary">
+            <div class="houzz-header-secondary" id="menu">
                 <ul class="header-nav-rooms">
                     <li class="header-nav-room">
                         <a class="menu-title" href="">

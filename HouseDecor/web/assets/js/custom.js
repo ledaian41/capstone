@@ -57,7 +57,18 @@
     $(document).ready(function () {
         mainApp.main_fun();
     });
-
+    
+    
+         
+    $(document).ready(function(){                    
+        $(window).scroll(function(){                          
+            if ($(this).scrollTop() > 200) {
+                $('#menu').fadeOut(500);
+            } else {
+                $('#menu').fadeIn(500);
+            }
+        });
+    });
 }(jQuery));
 
 
