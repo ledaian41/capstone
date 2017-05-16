@@ -19,7 +19,7 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
     </head>
-    <body data-spy="scroll" data-target=".navbar-fixed-top">
+    <body data-spy="scroll" data-target=".navbar-fixed-top"style="background: #f4f4f4 !important;">
         <!--NAVBAR SECTION-->
         <div class="navbar navbar-inverse navbar-fixed-top scrollclass" >
             <div class="container">
