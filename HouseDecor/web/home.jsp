@@ -20,44 +20,9 @@
 
     </head>
     <body data-spy="scroll" data-target=".navbar-fixed-top"style="background: #f4f4f4 !important;">
-        <!--NAVBAR SECTION-->
-        <div class="navbar navbar-inverse navbar-fixed-top scrollclass" >
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">YOUR LOGO</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <div class="navbar-brand">
-                        <form name="Search" action="Search">
-                            <div>
-                                <input type="text" name="txtSearch" value="" class="input-search"/>
-                            </div>
-                        </form>
-                    </div>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#home">HOME</a></li>
-                        <li>
-                            <a href="#portfolio">
-                                <i class="fa fa-bell-o"></i> 
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <i class="fa fa-shopping-cart"></i>    
-                            </a>
-                        </li>
-                        <li><a href="#contact">CONTACT</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--END NAVBAR SECTION-->
-
+        <!-- HEADER -->
+        <%@include file="header.jsp" %>
+        <!-- END HEADER -->
         <!--PORTFOLIO SECTION-->
         <section id="portfolio"  >
             <div class="container">
