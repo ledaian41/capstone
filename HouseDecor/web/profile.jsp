@@ -29,19 +29,19 @@
                 <div class="profile-cover">
                     <div class="profile-pic-container">
                         <a class="profile-pic-border" href="https://www.houzz.com/pro/cuk3t/manh-hung">
-                            <img class="profile-pic" width="173" height="173" id="mainUserProfilePic" 
+                            <img class="profile-pic" width="148" height="165" id="mainUserProfilePic" 
                                  src="https://st.hzcdn.com/res/2551/pic/user_3.png?v=2551"
                                  oncontextmenu="return false;" onmousedown="preventImageDrag(event);" 
                                  ondragstart="return false;" onselectstart="return false;">
                         </a>
                     </div>
-                    <img id="coverImage" class="cover-image " src="https://st.hzcdn.com/simgs/9bc1808e055144ba_17-0762/home-design.jpg" 
+                    <img id="coverImage" class="cover-image " src="assets/img/home-design.jpg" 
                          oncontextmenu="return false;" onmousedown="preventImageDrag(event);" 
                          ondragstart="return false;" onselectstart="return false;">
                     <div class="profile-info">
                         <div class="profile-title">
                             <h1>
-                                <a style="font-size: 29px;line-height: 1.1;"> Your Name</a>
+                                <a style="font-size: 29px;line-height: 1.1;text-decoration: none"href="#"> Your Name</a>
                             </h1>   
                         </div>
                     </div>
@@ -51,7 +51,7 @@
         </div>
         <!--END PORTFOLIO SECTION-->
         <!--FOOTER-->
-        
+        <%@include file="footer.jsp" %>
         <!--END FOOTER-->
         <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
         <!-- CORE JQUERY  -->

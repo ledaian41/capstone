@@ -286,8 +286,8 @@ font-size: 14px;
 }
 .profile-header .profile-pic-border {
     display: block;
-    width: 177px;
-    height: 177px;
+    width: 150px;
+    height: 167px;
     border: 2px solid #fff;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -304,7 +304,7 @@ font-size: 14px;
     left: 0;
     right: 0;
     padding-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     padding-left: 225px;
     height: 152px;
     color: #fff;
@@ -313,9 +313,12 @@ font-size: 14px;
     
    
 }
+.profile-header .profile-info a, .profile-header .profile-info a:hover {
+    color: #fff;
+}
 .cover-image{ 
     width: 100%;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     height: 210px;
 }
 .profile-title{
