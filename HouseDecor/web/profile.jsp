@@ -8,7 +8,7 @@
         <!--[if IE]>
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
             <![endif]-->
-        <title>Free Responsive Template Using Bootstrap : Revas  </title>
+        <title>House Decor: Profile </title>
         <!-- BOOTSTRAP CORE STYLE CSS -->
         <link href="assets/css/bootstrap.css" rel="stylesheet" />
         <!-- FONT AWESOME STYLE CSS -->
@@ -41,7 +41,7 @@
                     <div class="profile-info">
                         <div class="profile-title">
                             <h1>
-                                <a style="font-size: 29px;line-height: 1.1;text-decoration: none"href="#"> Your Name</a>
+                                <a style="font-size: 29px;line-height: 1.1;text-decoration: none" href="#"> Your Name</a>
                             </h1>   
                         </div>
                     </div>
