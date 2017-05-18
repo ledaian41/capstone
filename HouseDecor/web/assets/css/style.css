@@ -266,3 +266,60 @@ font-size: 14px;
     font-size: 16px;
     color: black;
 }
+.profile-header{
+    background: #888;
+    margin-bottom: 20px;
+    position: relative;
+}
+.profile-header.profile-cover {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 249px;
+}
+.profile-header .profile-pic-container {
+    position: absolute;
+
+    width: 200px;
+    z-index: 1;
+    bottom: 15px;
+}
+.profile-header .profile-pic-border {
+    display: block;
+    width: 177px;
+    height: 177px;
+    border: 2px solid #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0 16px;
+    box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+}
+.profile-header .profile-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 50px;
+    margin-bottom: 50px;
+    padding-left: 225px;
+    height: 152px;
+    color: #fff;
+    
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.7)));
+    
+   
+}
+.cover-image{ 
+    width: 100%;
+    padding-bottom: 30px;
+    height: 210px;
+}
+.profile-title{
+    padding-right: 380px;
+    position: absolute;
+    bottom: 15px;
+}
