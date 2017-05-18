@@ -20,7 +20,7 @@
         <!-- BOOTSTRAP CORE STYLE CSS -->
         <link href="../assets/css/bootstrap.css" rel="stylesheet" />
         <!-- FONT AWESOME STYLE CSS -->
-        <link href="../assets/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="../assets/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
         <!-- CUSTOM STYLE CSS -->
         <link href="../assets/css/style.css" rel="stylesheet" />    
         <!-- GOOGLE FONT -->
