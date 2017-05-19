@@ -41,12 +41,55 @@
                     <div class="profile-info">
                         <div class="profile-title">
                             <h1>
-                                <a style="font-size: 29px;line-height: 1.1;text-decoration: none" href="#"> Your Name</a>
+                                <a style="font-size: 25px;line-height: 1.1;text-decoration: none" href="#"> Your Name</a>
                             </h1>   
                         </div>
                     </div>
+                        <div class="change-cover-photo">
+                            <a class="hzBtn" id="changeCoverPhoto" style="text-decoration: none" href="#">
+                                <i class="fa fa-camera fa"></i>
+                                Change Cover Photo
+                            </a>
+                        </div>
+                        <div class="profile-pro-actions">
+                            <a class="btn-white" style="text-decoration: none;" href="#">
+                                <i class="fa fa-pencil fa" style="margin-right: 2px;"></i>Edit Profile
+                            </a>
+                        </div>
+                        <div class="side-bar">
+                            
+                            <ul class="list-inline" style="margin-top: 11px;">
+                                    <li class=""><div class="profile-pic-placeholder"></div></li>
+                                    <li class="sidebar-item">			
+                                        <a class="sidebar-item-label" href="https://www.houzz.com/pro/cuk3t/manh-hung" >
+                                            <span class="option-text" style="color: #3d8901">Your Houzz</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">			
+                                        <a class="sidebar-item-label-2" href="https://www.houzz.com/pro/cuk3t/manh-hung" >
+                                            <span class="option-text">Project</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">			
+                                        <a class="sidebar-item-label-2" href="https://www.houzz.com/pro/cuk3t/manh-hung" >
+                                            <span class="option-text">Ideabooks</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">			
+                                        <a class="sidebar-item-label-2" href="https://www.houzz.com/pro/cuk3t/manh-hung" >
+                                            <span class="option-text">Bookmarks</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">			
+                                        <a class="sidebar-item-label-2" href="https://www.houzz.com/pro/cuk3t/manh-hung" >
+                                            <span class="option-text">Purchases</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                            
+                        </div>
                 </div>
-                nhu cc aaaaaaaaaaaa
+               
             </div>
         </div>
         <!--END PORTFOLIO SECTION-->

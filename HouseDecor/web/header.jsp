@@ -46,7 +46,11 @@
                             </a>
                         </li>
                         
-                        <li><a href="#contact">CONTACT</a></li>
+                        <li style="margin-left: 20px;">
+                            <a href="#contact">
+                                <i class="fa fa-user"></i> 
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
