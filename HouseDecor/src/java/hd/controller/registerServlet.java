@@ -5,8 +5,13 @@
  */
 package hd.controller;
 
+import hd.entity.user;
+
+import hh.DAO.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,11 +37,27 @@ public class registerServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String button = request.getParameter("register");
             
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String firstname = request.getParameter("firstname");
+            String lastname = request.getParameter("lastname");
+            String birthday = request.getParameter("birthday");
+           
+            Date dateBirth = Date.valueOf(birthday);
+            int phone = Integer.parseInt(request.getParameter("phone"));
+            String gender = request.getParameter("gender");
+            UserDAO dao = new UserDAO();
+            user user1 = new user();
+            user1.setEmail(email);
+            user1.setPassword(password);
+            user1.setFirstname(firstname);
+            user1.setLastname(lastname);
+            user1.setDateOfBirth(dateBirth);
+            user1.setPhoneNumber(phone);
+            user1.setGender(gender.equals("0"));
+            dao.persist(user1);
+            System.out.println("thanh cong");
             
         }
     }
