@@ -13,5 +13,8 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <form action="LogoutAdminServlet" method="POST">
+            <input type="submit" value="Log out" name="btnAction" />
+        </form>
     </body>
 </html>

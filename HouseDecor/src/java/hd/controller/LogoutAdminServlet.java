@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lê Đại An
  */
-public class MainAdminServlet extends HttpServlet {
+public class LogoutAdminServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +32,10 @@ public class MainAdminServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String url = "#";
-            String button = request.getParameter("btnAction").toLowerCase();
-            if(button.equals("login")){
-                url = "LoginAdminServlet";
-            }else if(button.equals("logout")){
-                url = "LogoutAdminServlet";
-            }
-            request.getRequestDispatcher(url).forward(request, response);
-        }catch(Exception e){
-            log("ERROR at MainAdminServlet: "+e.getMessage());
-        }finally{
+            response.sendRedirect("admin/login.html");
+        } catch (Exception e) {
+            log("ERROR at LogoutAdminServlet: " + e.getMessage());
+        } finally {
             out.close();
         }
     }

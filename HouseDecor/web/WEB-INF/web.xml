@@ -13,6 +13,10 @@
         <servlet-class>hd.controller.LoginAdminServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>LogoutAdminServlet</servlet-name>
+        <servlet-class>hd.controller.LogoutAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MainAdminServlet</servlet-name>
         <servlet-class>hd.controller.MainAdminServlet</servlet-class>
     </servlet>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>LoginAdminServlet</servlet-name>
         <url-pattern>/LoginAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutAdminServlet</servlet-name>
+        <url-pattern>/LogoutAdminServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MainAdminServlet</servlet-name>
