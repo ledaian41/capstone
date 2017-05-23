@@ -8,6 +8,14 @@
         <servlet-name>registerServlet</servlet-name>
         <servlet-class>hd.controller.registerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginAdminServlet</servlet-name>
+        <servlet-class>hd.controller.LoginAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MainAdminServlet</servlet-name>
+        <servlet-class>hd.controller.MainAdminServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainServlet</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>registerServlet</servlet-name>
         <url-pattern>/registerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginAdminServlet</servlet-name>
+        <url-pattern>/LoginAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MainAdminServlet</servlet-name>
+        <url-pattern>/MainAdminServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
