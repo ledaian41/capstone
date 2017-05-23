@@ -34,11 +34,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tblorder", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "orders.findAll", query = "SELECT o FROM orders o")
-    , @NamedQuery(name = "orders.findByOrderID", query = "SELECT o FROM orders o WHERE o.orderID = :orderID")
-    , @NamedQuery(name = "orders.findByCreatedTime", query = "SELECT o FROM orders o WHERE o.createdTime = :createdTime")
-    , @NamedQuery(name = "orders.findByStatus", query = "SELECT o FROM orders o WHERE o.status = :status")})
-public class orders implements Serializable {
+    @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o")
+    , @NamedQuery(name = "Orders.findByOrderID", query = "SELECT o FROM Orders o WHERE o.orderID = :orderID")
+    , @NamedQuery(name = "Orders.findByCreatedTime", query = "SELECT o FROM Orders o WHERE o.createdTime = :createdTime")
+    , @NamedQuery(name = "Orders.findByStatus", query = "SELECT o FROM Orders o WHERE o.status = :status")})
+public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,14 +53,14 @@ public class orders implements Serializable {
     private Integer status;
     @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false)
     @ManyToOne(optional = false)
-    private user userID;
+    private User userID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderID")
-    private List<orderdetail> orderdetailList;
+    private List<Orderdetail> orderdetailList;
 
-    public orders() {
+    public Orders() {
     }
 
-    public orders(Integer orderID) {
+    public Orders(Integer orderID) {
         this.orderID = orderID;
     }
 
@@ -88,20 +88,20 @@ public class orders implements Serializable {
         this.status = status;
     }
 
-    public user getUserID() {
+    public User getUserID() {
         return userID;
     }
 
-    public void setUserID(user userID) {
+    public void setUserID(User userID) {
         this.userID = userID;
     }
 
     @XmlTransient
-    public List<orderdetail> getOrderdetailList() {
+    public List<Orderdetail> getOrderdetailList() {
         return orderdetailList;
     }
 
-    public void setOrderdetailList(List<orderdetail> orderdetailList) {
+    public void setOrderdetailList(List<Orderdetail> orderdetailList) {
         this.orderdetailList = orderdetailList;
     }
 
@@ -115,10 +115,10 @@ public class orders implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof orders)) {
+        if (!(object instanceof Orders)) {
             return false;
         }
-        orders other = (orders) object;
+        Orders other = (Orders) object;
         if ((this.orderID == null && other.orderID != null) || (this.orderID != null && !this.orderID.equals(other.orderID))) {
             return false;
         }
@@ -127,7 +127,7 @@ public class orders implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.orders[ orderID=" + orderID + " ]";
+        return "hd.entity.Orders[ orderID=" + orderID + " ]";
     }
     
 }

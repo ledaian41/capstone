@@ -95,7 +95,7 @@
 							</div>
 						</div>
 						<div class="form-group ">
-                                                    <input type="button" name="btAction" id="register" value="register">
+                                                    <input type="submit" name="btAction" id="register" value="register">
 						</div>
 						
 					</form>

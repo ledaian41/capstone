@@ -27,13 +27,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tblproductphoto", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "productphoto.findAll", query = "SELECT p FROM productphoto p")
-    , @NamedQuery(name = "productphoto.findByProductPhotoID", query = "SELECT p FROM productphoto p WHERE p.productPhotoID = :productPhotoID")
-    , @NamedQuery(name = "productphoto.findByUrl", query = "SELECT p FROM productphoto p WHERE p.url = :url")
-    , @NamedQuery(name = "productphoto.findByTitle", query = "SELECT p FROM productphoto p WHERE p.title = :title")
-    , @NamedQuery(name = "productphoto.findByDescription", query = "SELECT p FROM productphoto p WHERE p.description = :description")
-    , @NamedQuery(name = "productphoto.findByStatus", query = "SELECT p FROM productphoto p WHERE p.status = :status")})
-public class productphoto implements Serializable {
+    @NamedQuery(name = "Productphoto.findAll", query = "SELECT p FROM Productphoto p")
+    , @NamedQuery(name = "Productphoto.findByProductPhotoID", query = "SELECT p FROM Productphoto p WHERE p.productPhotoID = :productPhotoID")
+    , @NamedQuery(name = "Productphoto.findByUrl", query = "SELECT p FROM Productphoto p WHERE p.url = :url")
+    , @NamedQuery(name = "Productphoto.findByTitle", query = "SELECT p FROM Productphoto p WHERE p.title = :title")
+    , @NamedQuery(name = "Productphoto.findByDescription", query = "SELECT p FROM Productphoto p WHERE p.description = :description")
+    , @NamedQuery(name = "Productphoto.findByStatus", query = "SELECT p FROM Productphoto p WHERE p.status = :status")})
+public class Productphoto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,18 +51,18 @@ public class productphoto implements Serializable {
     private Integer status;
     @JoinColumn(name = "tblCategory_categoryID", referencedColumnName = "categoryID", nullable = false)
     @ManyToOne(optional = false)
-    private category tblCategorycategoryID;
+    private Category tblCategorycategoryID;
     @JoinColumn(name = "tblProduct_productID", referencedColumnName = "productID", nullable = false)
     @ManyToOne(optional = false)
-    private product tblProductproductID;
+    private Product tblProductproductID;
     @JoinColumn(name = "tblStyle_styleID", referencedColumnName = "styleID", nullable = false)
     @ManyToOne(optional = false)
-    private style tblStylestyleID;
+    private Style tblStylestyleID;
 
-    public productphoto() {
+    public Productphoto() {
     }
 
-    public productphoto(Integer productPhotoID) {
+    public Productphoto(Integer productPhotoID) {
         this.productPhotoID = productPhotoID;
     }
 
@@ -106,27 +106,27 @@ public class productphoto implements Serializable {
         this.status = status;
     }
 
-    public category getTblCategorycategoryID() {
+    public Category getTblCategorycategoryID() {
         return tblCategorycategoryID;
     }
 
-    public void setTblCategorycategoryID(category tblCategorycategoryID) {
+    public void setTblCategorycategoryID(Category tblCategorycategoryID) {
         this.tblCategorycategoryID = tblCategorycategoryID;
     }
 
-    public product getTblProductproductID() {
+    public Product getTblProductproductID() {
         return tblProductproductID;
     }
 
-    public void setTblProductproductID(product tblProductproductID) {
+    public void setTblProductproductID(Product tblProductproductID) {
         this.tblProductproductID = tblProductproductID;
     }
 
-    public style getTblStylestyleID() {
+    public Style getTblStylestyleID() {
         return tblStylestyleID;
     }
 
-    public void setTblStylestyleID(style tblStylestyleID) {
+    public void setTblStylestyleID(Style tblStylestyleID) {
         this.tblStylestyleID = tblStylestyleID;
     }
 
@@ -140,10 +140,10 @@ public class productphoto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof productphoto)) {
+        if (!(object instanceof Productphoto)) {
             return false;
         }
-        productphoto other = (productphoto) object;
+        Productphoto other = (Productphoto) object;
         if ((this.productPhotoID == null && other.productPhotoID != null) || (this.productPhotoID != null && !this.productPhotoID.equals(other.productPhotoID))) {
             return false;
         }
@@ -152,7 +152,7 @@ public class productphoto implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.productphoto[ productPhotoID=" + productPhotoID + " ]";
+        return "hd.entity.Productphoto[ productPhotoID=" + productPhotoID + " ]";
     }
     
 }

@@ -15,7 +15,7 @@ import javax.persistence.Embeddable;
  * @author cuk3t
  */
 @Embeddable
-public class trackingPK implements Serializable {
+public class TrackingPK implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "userID", nullable = false)
@@ -24,10 +24,10 @@ public class trackingPK implements Serializable {
     @Column(name = "tblCategory_categoryID", nullable = false)
     private int tblCategorycategoryID;
 
-    public trackingPK() {
+    public TrackingPK() {
     }
 
-    public trackingPK(int userID, int tblCategorycategoryID) {
+    public TrackingPK(int userID, int tblCategorycategoryID) {
         this.userID = userID;
         this.tblCategorycategoryID = tblCategorycategoryID;
     }
@@ -59,10 +59,10 @@ public class trackingPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof trackingPK)) {
+        if (!(object instanceof TrackingPK)) {
             return false;
         }
-        trackingPK other = (trackingPK) object;
+        TrackingPK other = (TrackingPK) object;
         if (this.userID != other.userID) {
             return false;
         }
@@ -74,7 +74,7 @@ public class trackingPK implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.trackingPK[ userID=" + userID + ", tblCategorycategoryID=" + tblCategorycategoryID + " ]";
+        return "hd.entity.TrackingPK[ userID=" + userID + ", tblCategorycategoryID=" + tblCategorycategoryID + " ]";
     }
     
 }

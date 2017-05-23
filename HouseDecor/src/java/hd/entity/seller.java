@@ -32,15 +32,15 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tblseller", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "seller.findAll", query = "SELECT s FROM seller s")
-    , @NamedQuery(name = "seller.findByTaxNumber", query = "SELECT s FROM seller s WHERE s.taxNumber = :taxNumber")
-    , @NamedQuery(name = "seller.findByStoreAddress", query = "SELECT s FROM seller s WHERE s.storeAddress = :storeAddress")
-    , @NamedQuery(name = "seller.findBySellerName", query = "SELECT s FROM seller s WHERE s.sellerName = :sellerName")
-    , @NamedQuery(name = "seller.findByStartDate", query = "SELECT s FROM seller s WHERE s.startDate = :startDate")
-    , @NamedQuery(name = "seller.findByDueDate", query = "SELECT s FROM seller s WHERE s.dueDate = :dueDate")
-    , @NamedQuery(name = "seller.findByPhone", query = "SELECT s FROM seller s WHERE s.phone = :phone")
-    , @NamedQuery(name = "seller.findByUserID", query = "SELECT s FROM seller s WHERE s.userID = :userID")})
-public class seller implements Serializable {
+    @NamedQuery(name = "Seller.findAll", query = "SELECT s FROM Seller s")
+    , @NamedQuery(name = "Seller.findByTaxNumber", query = "SELECT s FROM Seller s WHERE s.taxNumber = :taxNumber")
+    , @NamedQuery(name = "Seller.findByStoreAddress", query = "SELECT s FROM Seller s WHERE s.storeAddress = :storeAddress")
+    , @NamedQuery(name = "Seller.findBySellerName", query = "SELECT s FROM Seller s WHERE s.sellerName = :sellerName")
+    , @NamedQuery(name = "Seller.findByStartDate", query = "SELECT s FROM Seller s WHERE s.startDate = :startDate")
+    , @NamedQuery(name = "Seller.findByDueDate", query = "SELECT s FROM Seller s WHERE s.dueDate = :dueDate")
+    , @NamedQuery(name = "Seller.findByPhone", query = "SELECT s FROM Seller s WHERE s.phone = :phone")
+    , @NamedQuery(name = "Seller.findByUserID", query = "SELECT s FROM Seller s WHERE s.userID = :userID")})
+public class Seller implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Column(name = "taxNumber", length = 45)
@@ -63,14 +63,14 @@ public class seller implements Serializable {
     private Integer userID;
     @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
-    private professional professional;
+    private Professional professional;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblSelleruserID")
-    private List<product> productList;
+    private List<Product> productList;
 
-    public seller() {
+    public Seller() {
     }
 
-    public seller(Integer userID) {
+    public Seller(Integer userID) {
         this.userID = userID;
     }
 
@@ -130,20 +130,20 @@ public class seller implements Serializable {
         this.userID = userID;
     }
 
-    public professional getProfessional() {
+    public Professional getProfessional() {
         return professional;
     }
 
-    public void setProfessional(professional professional) {
+    public void setProfessional(Professional professional) {
         this.professional = professional;
     }
 
     @XmlTransient
-    public List<product> getProductList() {
+    public List<Product> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<product> productList) {
+    public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
 
@@ -157,10 +157,10 @@ public class seller implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof seller)) {
+        if (!(object instanceof Seller)) {
             return false;
         }
-        seller other = (seller) object;
+        Seller other = (Seller) object;
         if ((this.userID == null && other.userID != null) || (this.userID != null && !this.userID.equals(other.userID))) {
             return false;
         }
@@ -169,7 +169,7 @@ public class seller implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.seller[ userID=" + userID + " ]";
+        return "hd.entity.Seller[ userID=" + userID + " ]";
     }
     
 }

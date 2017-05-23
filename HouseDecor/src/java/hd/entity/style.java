@@ -29,10 +29,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tblstyle", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "style.findAll", query = "SELECT s FROM style s")
-    , @NamedQuery(name = "style.findByStyleID", query = "SELECT s FROM style s WHERE s.styleID = :styleID")
-    , @NamedQuery(name = "style.findByName", query = "SELECT s FROM style s WHERE s.name = :name")})
-public class style implements Serializable {
+    @NamedQuery(name = "Style.findAll", query = "SELECT s FROM Style s")
+    , @NamedQuery(name = "Style.findByStyleID", query = "SELECT s FROM Style s WHERE s.styleID = :styleID")
+    , @NamedQuery(name = "Style.findByName", query = "SELECT s FROM Style s WHERE s.name = :name")})
+public class Style implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,14 +43,14 @@ public class style implements Serializable {
     @Column(name = "name", length = 45)
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblStylestyleID")
-    private List<ideabookphoto> ideabookphotoList;
+    private List<Ideabookphoto> ideabookphotoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblStylestyleID")
-    private List<productphoto> productphotoList;
+    private List<Productphoto> productphotoList;
 
-    public style() {
+    public Style() {
     }
 
-    public style(Integer styleID) {
+    public Style(Integer styleID) {
         this.styleID = styleID;
     }
 
@@ -71,20 +71,20 @@ public class style implements Serializable {
     }
 
     @XmlTransient
-    public List<ideabookphoto> getIdeabookphotoList() {
+    public List<Ideabookphoto> getIdeabookphotoList() {
         return ideabookphotoList;
     }
 
-    public void setIdeabookphotoList(List<ideabookphoto> ideabookphotoList) {
+    public void setIdeabookphotoList(List<Ideabookphoto> ideabookphotoList) {
         this.ideabookphotoList = ideabookphotoList;
     }
 
     @XmlTransient
-    public List<productphoto> getProductphotoList() {
+    public List<Productphoto> getProductphotoList() {
         return productphotoList;
     }
 
-    public void setProductphotoList(List<productphoto> productphotoList) {
+    public void setProductphotoList(List<Productphoto> productphotoList) {
         this.productphotoList = productphotoList;
     }
 
@@ -98,10 +98,10 @@ public class style implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof style)) {
+        if (!(object instanceof Style)) {
             return false;
         }
-        style other = (style) object;
+        Style other = (Style) object;
         if ((this.styleID == null && other.styleID != null) || (this.styleID != null && !this.styleID.equals(other.styleID))) {
             return false;
         }
@@ -110,7 +110,7 @@ public class style implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.style[ styleID=" + styleID + " ]";
+        return "hd.entity.Style[ styleID=" + styleID + " ]";
     }
     
 }

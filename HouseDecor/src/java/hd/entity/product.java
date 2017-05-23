@@ -33,18 +33,18 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tblproduct", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "product.findAll", query = "SELECT p FROM product p")
-    , @NamedQuery(name = "product.findByProductID", query = "SELECT p FROM product p WHERE p.productID = :productID")
-    , @NamedQuery(name = "product.findByProductName", query = "SELECT p FROM product p WHERE p.productName = :productName")
-    , @NamedQuery(name = "product.findByBarCode", query = "SELECT p FROM product p WHERE p.barCode = :barCode")
-    , @NamedQuery(name = "product.findByDescripsion", query = "SELECT p FROM product p WHERE p.descripsion = :descripsion")
-    , @NamedQuery(name = "product.findByPrice", query = "SELECT p FROM product p WHERE p.price = :price")
-    , @NamedQuery(name = "product.findByQuantity", query = "SELECT p FROM product p WHERE p.quantity = :quantity")
-    , @NamedQuery(name = "product.findBySize", query = "SELECT p FROM product p WHERE p.size = :size")
-    , @NamedQuery(name = "product.findByMaterial", query = "SELECT p FROM product p WHERE p.material = :material")
-    , @NamedQuery(name = "product.findByWarranty", query = "SELECT p FROM product p WHERE p.warranty = :warranty")
-    , @NamedQuery(name = "product.findByStatus", query = "SELECT p FROM product p WHERE p.status = :status")})
-public class product implements Serializable {
+    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
+    , @NamedQuery(name = "Product.findByProductID", query = "SELECT p FROM Product p WHERE p.productID = :productID")
+    , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName = :productName")
+    , @NamedQuery(name = "Product.findByBarCode", query = "SELECT p FROM Product p WHERE p.barCode = :barCode")
+    , @NamedQuery(name = "Product.findByDescripsion", query = "SELECT p FROM Product p WHERE p.descripsion = :descripsion")
+    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
+    , @NamedQuery(name = "Product.findByQuantity", query = "SELECT p FROM Product p WHERE p.quantity = :quantity")
+    , @NamedQuery(name = "Product.findBySize", query = "SELECT p FROM Product p WHERE p.size = :size")
+    , @NamedQuery(name = "Product.findByMaterial", query = "SELECT p FROM Product p WHERE p.material = :material")
+    , @NamedQuery(name = "Product.findByWarranty", query = "SELECT p FROM Product p WHERE p.warranty = :warranty")
+    , @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")})
+public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -75,17 +75,17 @@ public class product implements Serializable {
         @JoinColumn(name = "tblProduct_productID", referencedColumnName = "productID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "tblPromotion_id", referencedColumnName = "id", nullable = false)})
     @ManyToMany
-    private List<promotion> promotionList;
+    private List<Promotion> promotionList;
     @JoinColumn(name = "tblSeller_userID", referencedColumnName = "userID", nullable = false)
     @ManyToOne(optional = false)
-    private seller tblSelleruserID;
+    private Seller tblSelleruserID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblProductproductID")
-    private List<productphoto> productphotoList;
+    private List<Productphoto> productphotoList;
 
-    public product() {
+    public Product() {
     }
 
-    public product(Integer productID) {
+    public Product(Integer productID) {
         this.productID = productID;
     }
 
@@ -170,28 +170,28 @@ public class product implements Serializable {
     }
 
     @XmlTransient
-    public List<promotion> getPromotionList() {
+    public List<Promotion> getPromotionList() {
         return promotionList;
     }
 
-    public void setPromotionList(List<promotion> promotionList) {
+    public void setPromotionList(List<Promotion> promotionList) {
         this.promotionList = promotionList;
     }
 
-    public seller getTblSelleruserID() {
+    public Seller getTblSelleruserID() {
         return tblSelleruserID;
     }
 
-    public void setTblSelleruserID(seller tblSelleruserID) {
+    public void setTblSelleruserID(Seller tblSelleruserID) {
         this.tblSelleruserID = tblSelleruserID;
     }
 
     @XmlTransient
-    public List<productphoto> getProductphotoList() {
+    public List<Productphoto> getProductphotoList() {
         return productphotoList;
     }
 
-    public void setProductphotoList(List<productphoto> productphotoList) {
+    public void setProductphotoList(List<Productphoto> productphotoList) {
         this.productphotoList = productphotoList;
     }
 
@@ -205,10 +205,10 @@ public class product implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof product)) {
+        if (!(object instanceof Product)) {
             return false;
         }
-        product other = (product) object;
+        Product other = (Product) object;
         if ((this.productID == null && other.productID != null) || (this.productID != null && !this.productID.equals(other.productID))) {
             return false;
         }
@@ -217,7 +217,7 @@ public class product implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.product[ productID=" + productID + " ]";
+        return "hd.entity.Product[ productID=" + productID + " ]";
     }
     
 }

@@ -27,12 +27,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tblstory", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "story.findAll", query = "SELECT s FROM story s")
-    , @NamedQuery(name = "story.findByStoryID", query = "SELECT s FROM story s WHERE s.storyID = :storyID")
-    , @NamedQuery(name = "story.findByTitle", query = "SELECT s FROM story s WHERE s.title = :title")
-    , @NamedQuery(name = "story.findByContent", query = "SELECT s FROM story s WHERE s.content = :content")
-    , @NamedQuery(name = "story.findByStatus", query = "SELECT s FROM story s WHERE s.status = :status")})
-public class story implements Serializable {
+    @NamedQuery(name = "Story.findAll", query = "SELECT s FROM Story s")
+    , @NamedQuery(name = "Story.findByStoryID", query = "SELECT s FROM Story s WHERE s.storyID = :storyID")
+    , @NamedQuery(name = "Story.findByTitle", query = "SELECT s FROM Story s WHERE s.title = :title")
+    , @NamedQuery(name = "Story.findByContent", query = "SELECT s FROM Story s WHERE s.content = :content")
+    , @NamedQuery(name = "Story.findByStatus", query = "SELECT s FROM Story s WHERE s.status = :status")})
+public class Story implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,12 +48,12 @@ public class story implements Serializable {
     private Integer status;
     @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false)
     @ManyToOne(optional = false)
-    private user userID;
+    private User userID;
 
-    public story() {
+    public Story() {
     }
 
-    public story(Integer storyID) {
+    public Story(Integer storyID) {
         this.storyID = storyID;
     }
 
@@ -89,11 +89,11 @@ public class story implements Serializable {
         this.status = status;
     }
 
-    public user getUserID() {
+    public User getUserID() {
         return userID;
     }
 
-    public void setUserID(user userID) {
+    public void setUserID(User userID) {
         this.userID = userID;
     }
 
@@ -107,10 +107,10 @@ public class story implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof story)) {
+        if (!(object instanceof Story)) {
             return false;
         }
-        story other = (story) object;
+        Story other = (Story) object;
         if ((this.storyID == null && other.storyID != null) || (this.storyID != null && !this.storyID.equals(other.storyID))) {
             return false;
         }
@@ -119,7 +119,7 @@ public class story implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.story[ storyID=" + storyID + " ]";
+        return "hd.entity.Story[ storyID=" + storyID + " ]";
     }
     
 }

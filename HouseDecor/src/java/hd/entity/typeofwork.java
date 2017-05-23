@@ -29,10 +29,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tbltypeofwork", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "typeofwork.findAll", query = "SELECT t FROM typeofwork t")
-    , @NamedQuery(name = "typeofwork.findById", query = "SELECT t FROM typeofwork t WHERE t.id = :id")
-    , @NamedQuery(name = "typeofwork.findByName", query = "SELECT t FROM typeofwork t WHERE t.name = :name")})
-public class typeofwork implements Serializable {
+    @NamedQuery(name = "Typeofwork.findAll", query = "SELECT t FROM Typeofwork t")
+    , @NamedQuery(name = "Typeofwork.findById", query = "SELECT t FROM Typeofwork t WHERE t.id = :id")
+    , @NamedQuery(name = "Typeofwork.findByName", query = "SELECT t FROM Typeofwork t WHERE t.name = :name")})
+public class Typeofwork implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,12 +43,12 @@ public class typeofwork implements Serializable {
     @Column(name = "name", length = 85)
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblTypeOfWorkid")
-    private List<professional> professionalList;
+    private List<Professional> professionalList;
 
-    public typeofwork() {
+    public Typeofwork() {
     }
 
-    public typeofwork(Integer id) {
+    public Typeofwork(Integer id) {
         this.id = id;
     }
 
@@ -69,11 +69,11 @@ public class typeofwork implements Serializable {
     }
 
     @XmlTransient
-    public List<professional> getProfessionalList() {
+    public List<Professional> getProfessionalList() {
         return professionalList;
     }
 
-    public void setProfessionalList(List<professional> professionalList) {
+    public void setProfessionalList(List<Professional> professionalList) {
         this.professionalList = professionalList;
     }
 
@@ -87,10 +87,10 @@ public class typeofwork implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof typeofwork)) {
+        if (!(object instanceof Typeofwork)) {
             return false;
         }
-        typeofwork other = (typeofwork) object;
+        Typeofwork other = (Typeofwork) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -99,7 +99,7 @@ public class typeofwork implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.typeofwork[ id=" + id + " ]";
+        return "hd.entity.Typeofwork[ id=" + id + " ]";
     }
     
 }

@@ -5,8 +5,11 @@
  */
 package hd.controller;
 
+import hd.DAO.UserDAO;
+import hd.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +40,21 @@ public class registerServlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String firstname = request.getParameter("firstname");
-            
+            String lastname = request.getParameter("lastname");
+            String date = request.getParameter("birthday");
+            Date birthday = Date.valueOf("date");
+            int phone = Integer.parseInt(request.getParameter("phone"));
+            String gender = request.getParameter("gender");
+            User user = new User();
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+            user.setDateOfBirth(birthday);
+            user.setPhoneNumber(phone);
+            user.setGender(gender.equals("0"));
+            UserDAO dao = new UserDAO();
+            dao.persist(user);
         }
     }
 

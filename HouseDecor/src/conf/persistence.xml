@@ -39,6 +39,25 @@
     <class>hd.entity.seller</class>
     <class>hd.entity.ideabookphoto</class>
     <class>hd.entity.admin</class>
+    <class>hd.entity.Tracking</class>
+    <class>hd.entity.User</class>
+    <class>hd.entity.Project</class>
+    <class>hd.entity.City</class>
+    <class>hd.entity.Story</class>
+    <class>hd.entity.Orderdetail</class>
+    <class>hd.entity.Orders</class>
+    <class>hd.entity.Ideabookphoto</class>
+    <class>hd.entity.Professional</class>
+    <class>hd.entity.Promotion</class>
+    <class>hd.entity.Style</class>
+    <class>hd.entity.Typeofwork</class>
+    <class>hd.entity.Seller</class>
+    <class>hd.entity.Ideabook</class>
+    <class>hd.entity.Role</class>
+    <class>hd.entity.Product</class>
+    <class>hd.entity.Productphoto</class>
+    <class>hd.entity.Admin</class>
+    <class>hd.entity.Category</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/housedecor?zeroDateTimeBehavior=convertToNull"/>

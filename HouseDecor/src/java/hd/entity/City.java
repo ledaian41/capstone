@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tlcity", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tlcity.findAll", query = "SELECT t FROM Tlcity t")
-    , @NamedQuery(name = "Tlcity.findByCityCode", query = "SELECT t FROM Tlcity t WHERE t.cityCode = :cityCode")
-    , @NamedQuery(name = "Tlcity.findByCityName", query = "SELECT t FROM Tlcity t WHERE t.cityName = :cityName")})
-public class Tlcity implements Serializable {
+    @NamedQuery(name = "City.findAll", query = "SELECT c FROM City c")
+    , @NamedQuery(name = "City.findByCityCode", query = "SELECT c FROM City c WHERE c.cityCode = :cityCode")
+    , @NamedQuery(name = "City.findByCityName", query = "SELECT c FROM City c WHERE c.cityName = :cityName")})
+public class City implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,12 +40,12 @@ public class Tlcity implements Serializable {
     @Column(name = "cityName", length = 105)
     private String cityName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityCode")
-    private List<user> userList;
+    private List<User> userList;
 
-    public Tlcity() {
+    public City() {
     }
 
-    public Tlcity(String cityCode) {
+    public City(String cityCode) {
         this.cityCode = cityCode;
     }
 
@@ -66,11 +66,11 @@ public class Tlcity implements Serializable {
     }
 
     @XmlTransient
-    public List<user> getUserList() {
+    public List<User> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<user> userList) {
+    public void setUserList(List<User> userList) {
         this.userList = userList;
     }
 
@@ -84,10 +84,10 @@ public class Tlcity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tlcity)) {
+        if (!(object instanceof City)) {
             return false;
         }
-        Tlcity other = (Tlcity) object;
+        City other = (City) object;
         if ((this.cityCode == null && other.cityCode != null) || (this.cityCode != null && !this.cityCode.equals(other.cityCode))) {
             return false;
         }
@@ -96,7 +96,7 @@ public class Tlcity implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.Tlcity[ cityCode=" + cityCode + " ]";
+        return "hd.entity.City[ cityCode=" + cityCode + " ]";
     }
     
 }

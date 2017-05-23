@@ -27,16 +27,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tbltracking", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "tracking.findAll", query = "SELECT t FROM tracking t")
-    , @NamedQuery(name = "tracking.findByCount", query = "SELECT t FROM tracking t WHERE t.count = :count")
-    , @NamedQuery(name = "tracking.findByLastUpdate", query = "SELECT t FROM tracking t WHERE t.lastUpdate = :lastUpdate")
-    , @NamedQuery(name = "tracking.findByUserID", query = "SELECT t FROM tracking t WHERE t.trackingPK.userID = :userID")
-    , @NamedQuery(name = "tracking.findByTblCategorycategoryID", query = "SELECT t FROM tracking t WHERE t.trackingPK.tblCategorycategoryID = :tblCategorycategoryID")})
-public class tracking implements Serializable {
+    @NamedQuery(name = "Tracking.findAll", query = "SELECT t FROM Tracking t")
+    , @NamedQuery(name = "Tracking.findByCount", query = "SELECT t FROM Tracking t WHERE t.count = :count")
+    , @NamedQuery(name = "Tracking.findByLastUpdate", query = "SELECT t FROM Tracking t WHERE t.lastUpdate = :lastUpdate")
+    , @NamedQuery(name = "Tracking.findByUserID", query = "SELECT t FROM Tracking t WHERE t.trackingPK.userID = :userID")
+    , @NamedQuery(name = "Tracking.findByTblCategorycategoryID", query = "SELECT t FROM Tracking t WHERE t.trackingPK.tblCategorycategoryID = :tblCategorycategoryID")})
+public class Tracking implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected trackingPK trackingPK;
+    protected TrackingPK trackingPK;
     @Column(name = "count")
     private Integer count;
     @Column(name = "lastUpdate")
@@ -44,27 +44,27 @@ public class tracking implements Serializable {
     private Date lastUpdate;
     @JoinColumn(name = "tblCategory_categoryID", referencedColumnName = "categoryID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private category category;
+    private Category category;
     @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private user user;
+    private User user;
 
-    public tracking() {
+    public Tracking() {
     }
 
-    public tracking(trackingPK trackingPK) {
+    public Tracking(TrackingPK trackingPK) {
         this.trackingPK = trackingPK;
     }
 
-    public tracking(int userID, int tblCategorycategoryID) {
-        this.trackingPK = new trackingPK(userID, tblCategorycategoryID);
+    public Tracking(int userID, int tblCategorycategoryID) {
+        this.trackingPK = new TrackingPK(userID, tblCategorycategoryID);
     }
 
-    public trackingPK getTrackingPK() {
+    public TrackingPK getTrackingPK() {
         return trackingPK;
     }
 
-    public void setTrackingPK(trackingPK trackingPK) {
+    public void setTrackingPK(TrackingPK trackingPK) {
         this.trackingPK = trackingPK;
     }
 
@@ -84,19 +84,19 @@ public class tracking implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public category getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public user getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(user user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -110,10 +110,10 @@ public class tracking implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof tracking)) {
+        if (!(object instanceof Tracking)) {
             return false;
         }
-        tracking other = (tracking) object;
+        Tracking other = (Tracking) object;
         if ((this.trackingPK == null && other.trackingPK != null) || (this.trackingPK != null && !this.trackingPK.equals(other.trackingPK))) {
             return false;
         }
@@ -122,7 +122,7 @@ public class tracking implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.tracking[ trackingPK=" + trackingPK + " ]";
+        return "hd.entity.Tracking[ trackingPK=" + trackingPK + " ]";
     }
     
 }
