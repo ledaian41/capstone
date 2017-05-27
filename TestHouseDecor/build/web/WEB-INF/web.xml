@@ -24,6 +24,10 @@
         <servlet-name>SetStatusAccountServlet</servlet-name>
         <servlet-class>hd.controller.SetStatusAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadProjectsServlet</servlet-name>
+        <servlet-class>hd.controller.LoadProjectsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainAdminServlet</servlet-name>
         <url-pattern>/MainAdminServlet</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>SetStatusAccountServlet</servlet-name>
         <url-pattern>/SetStatusAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadProjectsServlet</servlet-name>
+        <url-pattern>/LoadProjectsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

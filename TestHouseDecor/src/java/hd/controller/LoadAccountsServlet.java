@@ -52,13 +52,18 @@ public class LoadAccountsServlet extends HttpServlet {
                 TbluserJpaController userJpa = new TbluserJpaController(emf);
                 List<Tbluser> list = new ArrayList<>();
                 switch (status) {
-                    case 0:
+                    case Constant.STATUS_DEACTIVE:
                         url = Constant.BLOCK_LIST_PAGE;
                         list = userJpa.loadAccountsByStatus(status);
                         break;
-                    case 1:
-                        url = Constant.MANAGE_ACCOUNT_PAGE;
-                        list = userJpa.loadAccountsByStatus(status);
+                    case Constant.STATUS_ACTIVE:
+                        int role = Integer.parseInt(request.getParameter(Constant.PARAM_ROLE));
+                        list = userJpa.loadAccountsByStatusAndRole(status, role);
+                        if (role == Constant.ROLE_MEMBER) {
+                            url = Constant.MANAGE_ACCOUNT_MEMBER_PAGE;
+                        } else if (role == Constant.ROLE_PROFESSIONAL) {
+                            url = Constant.MANAGE_ACCOUNT_PROFESSIONAL_PAGE;
+                        }
                         break;
                 }
                 session.setAttribute(Constant.ATT_ACCOUNT_LIST, list);

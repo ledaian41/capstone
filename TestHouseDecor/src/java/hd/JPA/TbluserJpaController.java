@@ -558,15 +558,31 @@ public class TbluserJpaController implements Serializable {
         return list;
     }
 
-    public boolean setStatusAccount(Tbluser account) {
-        boolean flag = false;
+    public List<Tbluser> loadAccountsByStatusAndRole(int status, int role) {
+        List<Tbluser> list = new ArrayList<>();
         EntityManager em = getEntityManager();
         try {
-            edit(account);
-            flag = true;
+            Query query = em.createNamedQuery("Tbluser.findByStatusAndRole");
+            query.setParameter("roleID", role);
+            query.setParameter("status", status);
+            list = query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            em.close();
         }
-        return flag;
+        return list;
     }
+
+//    public boolean setStatusAccount1(Tbluser account) {
+//        boolean flag = false;
+//        EntityManager em = getEntityManager();
+//        try {
+//            edit(account);
+//            flag = true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return flag;
+//    }
 }

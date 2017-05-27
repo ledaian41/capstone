@@ -58,23 +58,23 @@ public class SetStatusAccountServlet extends HttpServlet {
                 }
                 TbluserJpaController jpaUser = new TbluserJpaController(emf);
                 switch (account.getStatus()) {
-                    case Constant.STATUS_CODE_0:
-                        account.setStatus(Constant.STATUS_CODE_1);
-                        if (jpaUser.setStatusAccount(account)) {
-                            url = Constant.LOAD_ACCOUNTS_SERVLET + "?"
-                                    + Constant.PARAM_STATUS + "=" + Constant.STATUS_CODE_0;
-                        }
+                    case Constant.STATUS_ACTIVE:
+                        account.setStatus(Constant.STATUS_DEACTIVE);
+                        jpaUser.edit(account);
+                        url = Constant.LOAD_ACCOUNTS_SERVLET + "?"
+                                + Constant.PARAM_STATUS + "=" + Constant.STATUS_ACTIVE
+                                + "&" + Constant.PARAM_ROLE + "=" + account.getRoleID();
                         break;
-                    case Constant.STATUS_CODE_1:
-                        account.setStatus(Constant.STATUS_CODE_0);
-                        if (jpaUser.setStatusAccount(account)) {
-                            url = Constant.LOAD_ACCOUNTS_SERVLET + "?"
-                                    + Constant.PARAM_STATUS + "=" + Constant.STATUS_CODE_1;
-                        }
+                    case Constant.STATUS_DEACTIVE:
+                        account.setStatus(Constant.STATUS_ACTIVE);
+                        jpaUser.edit(account);
+                        url = Constant.LOAD_ACCOUNTS_SERVLET + "?"
+                                + Constant.PARAM_STATUS + "=" + Constant.STATUS_DEACTIVE;
                         break;
                 }
             }
-            request.getRequestDispatcher(url).forward(request, response);
+            response.sendRedirect(url);
+//            request.getRequestDispatcher(url).forward(request, response);
         } catch (Exception e) {
             log("ERROR at " + Constant.SET_STATUS_ACCOUNT_SERVLET + ": " + e.getMessage());
             response.sendRedirect(Constant.ERROR_PAGE);

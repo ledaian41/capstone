@@ -5,6 +5,7 @@
  */
 package hd.JPA;
 
+import hd.DTO.ProjectIdNameDTO;
 import hd.JPA.exceptions.IllegalOrphanException;
 import hd.JPA.exceptions.NonexistentEntityException;
 import java.io.Serializable;
@@ -229,5 +230,49 @@ public class TblprojectJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<ProjectIdNameDTO> getProjectIdAndNameByUserId(int userId) {
+        EntityManager em = getEntityManager();
+        List<ProjectIdNameDTO> list = new ArrayList<>();
+        try {
+            Query query = em.createNamedQuery("Tblproject.loadIdAndName");
+            query.setParameter("userID", userId);
+            list = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return list;
+    }
+
+    public List<Tblproject> getProjectByUserId(int userId) {
+        EntityManager em = getEntityManager();
+        List<Tblproject> list = new ArrayList<>();
+        try {
+            Query query = em.createNamedQuery("Tblproject.findByUserId");
+            query.setParameter("userID", userId);
+            list = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return list;
+    }
+
+    public List<Tblproject> getProjectsByStatus(int status) {
+        EntityManager em = getEntityManager();
+        List<Tblproject> list = new ArrayList<>();
+        try {
+            Query query = em.createNamedQuery("Tblproject.findByStatus");
+            query.setParameter("status", status);
+            list = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return list;
+    }
 }

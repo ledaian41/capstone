@@ -42,7 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Tblproject.findByWebsite", query = "SELECT t FROM Tblproject t WHERE t.website = :website")
     , @NamedQuery(name = "Tblproject.findByYear", query = "SELECT t FROM Tblproject t WHERE t.year = :year")
     , @NamedQuery(name = "Tblproject.findByKeywords", query = "SELECT t FROM Tblproject t WHERE t.keywords = :keywords")
-    , @NamedQuery(name = "Tblproject.findByStatus", query = "SELECT t FROM Tblproject t WHERE t.status = :status")})
+    , @NamedQuery(name = "Tblproject.findByStatus", query = "SELECT t FROM Tblproject t WHERE t.status = :status")
+    , @NamedQuery(name = "Tblproject.findByUserId", query = "SELECT t.projectID, t.projectName, t.address, t.cost, t.website, t.year, t.keywords, t.status FROM Tblproject t WHERE t.userID = :userID")
+    , @NamedQuery(name = "Tblproject.loadIdAndName", query = "SELECT t.projectID, t.projectName, t.status FROM Tblproject t WHERE t.userID.userID = :userID ")})
 public class Tblproject implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -185,5 +187,5 @@ public class Tblproject implements Serializable {
     public String toString() {
         return "hd.entity.Tblproject[ projectID=" + projectID + " ]";
     }
-    
+
 }

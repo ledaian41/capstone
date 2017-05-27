@@ -50,6 +50,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Tbluser.findByRoleID", query = "SELECT t FROM Tbluser t WHERE t.roleID = :roleID")
     , @NamedQuery(name = "Tbluser.findByGender", query = "SELECT t FROM Tbluser t WHERE t.gender = :gender")
     , @NamedQuery(name = "Tbluser.findByStatus", query = "SELECT t FROM Tbluser t WHERE t.status = :status")
+    , @NamedQuery(name = "Tbluser.findByStatusAndRole", query = "SELECT t FROM Tbluser t WHERE t.status = :status AND t.roleID = :roleID")
     , @NamedQuery(name = "Tbluser.findByPrimayryAddress", query = "SELECT t FROM Tbluser t WHERE t.primayryAddress = :primayryAddress")
     , @NamedQuery(name = "Tbluser.findBySencondAddress", query = "SELECT t FROM Tbluser t WHERE t.sencondAddress = :sencondAddress")
     , @NamedQuery(name = "Tbluser.setStatusAccount", query = "UPDATE Tbluser t SET t.status= :status WHERE t.userID= :userID")})
@@ -76,7 +77,7 @@ public class Tbluser implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date registerDate;
     @Column(name = "phoneNumber")
-    private Integer phoneNumber;
+    private String phoneNumber;
     @Column(name = "roleID")
     private Integer roleID;
     @Column(name = "gender")
@@ -171,11 +172,11 @@ public class Tbluser implements Serializable {
         this.registerDate = registerDate;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

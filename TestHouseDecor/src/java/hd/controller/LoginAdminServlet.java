@@ -47,14 +47,12 @@ public class LoginAdminServlet extends HttpServlet {
                 TbladminJpaController adminJpa = new TbladminJpaController(emf);
                 if (adminJpa.checkLogin(username, password)) {
                     HttpSession session = request.getSession();
-                    session.setAttribute(Constant.ATT_ADMIN, Constant.STRING_ADMIN);
-                    url = Constant.LOAD_ACCOUNTS_SERVLET + "?"
-                            + Constant.PARAM_STATUS + "=" + Constant.STATUS_CODE_1;
-                }else{
+                    session.setAttribute(Constant.ATT_ADMIN, Constant.ADMIN);
+                    url = Constant.ADMIN_PAGE;
+                } else {
                     request.setAttribute("ERROR", "Invalid email or password !!");
                 }
-            }
-            else{
+            } else {
                 request.setAttribute("ERROR", "Please input your email and password !!");
             }
             request.getRequestDispatcher(url).forward(request, response);

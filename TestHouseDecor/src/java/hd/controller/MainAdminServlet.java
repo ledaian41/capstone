@@ -34,18 +34,23 @@ public class MainAdminServlet extends HttpServlet {
         try {
             String url = "#";
             String button = request.getParameter(Constant.BTN_ACTION).toLowerCase();
-            if (button.equals(Constant.STRING_LOGIN)) {
+            if (button.equals(Constant.LOGIN)) {
                 url = Constant.LOGIN_ADMIN_SERVLET;
-            } else if (button.equals(Constant.STRING_LOGOUT)) {
+            } else if (button.equals(Constant.LOGOUT)) {
                 url = Constant.LOGOUT_ADMIN_SERVLET;
-            } else if (button.equals(Constant.STRING_VIEWDETAIL)) {
+            } else if (button.equals(Constant.VIEWDETAIL)) {
                 url = Constant.LOAD_ACCOUNT_INFO_SERVLET;
-            } else if (button.equals(Constant.STRING_BAN_ACCOUNT)) {
+            } else if (button.equals(Constant.BAN_ACCOUNT)) {
                 url = Constant.SET_STATUS_ACCOUNT_SERVLET + "?"
-                        + Constant.PARAM_STATUS + "=" + Constant.STATUS_CODE_0;
-            } else if (button.equals(Constant.STRING_UNBAN_ACCOUNT)) {
+                        + Constant.PARAM_STATUS + "=" + Constant.STATUS_DEACTIVE;
+            } else if (button.equals(Constant.UNBAN_ACCOUNT)) {
                 url = Constant.SET_STATUS_ACCOUNT_SERVLET + "?"
-                        + Constant.PARAM_STATUS + "=" + Constant.STATUS_CODE_1;
+                        + Constant.PARAM_STATUS + "=" + Constant.STATUS_ACTIVE;
+            } else if (button.equals(Constant.LOAD)) {
+                url = Constant.LOAD_ACCOUNTS_SERVLET + "?"
+                        + Constant.PARAM_STATUS + "=" + Constant.STATUS_ACTIVE;
+            } else if(button.equals(Constant.LOAD_PROJECT)){
+                url = Constant.LOAD_PROJECT_SERVLET;
             }
             request.getRequestDispatcher(url).forward(request, response);
         } catch (Exception e) {
