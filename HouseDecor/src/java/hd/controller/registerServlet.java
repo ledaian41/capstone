@@ -5,21 +5,28 @@
  */
 package hd.controller;
 
+import hd.DAO.CityDAO;
 import hd.DAO.UserDAO;
+import hd.entity.City;
 import hd.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author cuk3t
  */
-public class registerServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,26 +42,50 @@ public class registerServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String button = request.getParameter("register");
-            
+
+            String url = "";
             String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String firstname = request.getParameter("firstname");
-            String lastname = request.getParameter("lastname");
-            String date = request.getParameter("birthday");
-            Date birthday = Date.valueOf("date");
-            int phone = Integer.parseInt(request.getParameter("phone"));
-            String gender = request.getParameter("gender");
-            User user = new User();
-            user.setEmail(email);
-            user.setPassword(password);
-            user.setFirstname(firstname);
-            user.setLastname(lastname);
-            user.setDateOfBirth(birthday);
-            user.setPhoneNumber(phone);
-            user.setGender(gender.equals("0"));
             UserDAO dao = new UserDAO();
-            dao.persist(user);
+            User user = dao.getUserByEmail(email);
+            if (user != null) {
+                request.setAttribute("emailIsExist", "Email is exist in system.");
+                url = "register.jsp";
+            }
+            
+            else {
+                String password = request.getParameter("password");
+                String firstname = request.getParameter("firstName");
+                String lastname = request.getParameter("lastName");
+
+                String dateStr = request.getParameter("birthDay");
+
+                SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
+                java.util.Date date = null;
+                try {
+                    date = sdf1.parse(dateStr);
+                } catch (ParseException ex) {
+                    Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                java.sql.Date birthday = new Date(date.getTime());
+
+                //Date birthday = Date.valueOf(date);
+                int phone = Integer.parseInt(request.getParameter("phone"));
+                String gender = request.getParameter("gender");
+                boolean gender1 = gender.equals("1");
+                String nameCity = request.getParameter("city");
+                
+                CityDAO cityDao = new CityDAO();
+                City city = cityDao.searchCity(nameCity);
+                String address = request.getParameter("address");
+
+                dao.insertMember(email, password, lastname, firstname, birthday, phone, gender1, city, address);
+                
+                HttpSession session = request.getSession();
+                User user2 = dao.getUserByEmail(email);
+                session.setAttribute("user", user2);
+            }
+            
+            request.getRequestDispatcher("LoginServlet").forward(request, response);
         }
     }
 
