@@ -5,18 +5,21 @@
  */
 package hd.controller;
 
+import hd.DAO.UserDAO;
+import hd.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author cuk3t
  */
-public class MainServlet extends HttpServlet {
+public class ProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,13 +35,14 @@ public class MainServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String button = request.getParameter("btAction");
-             if(button.equals("register")){
-                 request.getRequestDispatcher("registerServlet").forward(request, response);
-             }
-             else if(button.equals("login")){
-                 request.getRequestDispatcher("LoginServlet").forward(request, response);
-             }
+            HttpSession session = request.getSession();
+            
+            User user = (User) session.getAttribute("user");
+            String url = "editProfile.jsp";
+            UserDAO userDao = new UserDAO();
+            User userEntity = userDao.getUserByEmail(user.getEmail());
+            request.setAttribute("userEntity", userEntity);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

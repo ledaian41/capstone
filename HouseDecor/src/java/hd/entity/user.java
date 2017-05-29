@@ -38,21 +38,21 @@ import javax.xml.bind.annotation.XmlTransient;
     @UniqueConstraint(columnNames = {"email"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "user.findAll", query = "SELECT u FROM user u")
-    , @NamedQuery(name = "user.findByUserID", query = "SELECT u FROM user u WHERE u.userID = :userID")
-    , @NamedQuery(name = "user.findByEmail", query = "SELECT u FROM user u WHERE u.email = :email")
-    , @NamedQuery(name = "user.findByPassword", query = "SELECT u FROM user u WHERE u.password = :password")
-    , @NamedQuery(name = "user.findByFirstname", query = "SELECT u FROM user u WHERE u.firstname = :firstname")
-    , @NamedQuery(name = "user.findByLastname", query = "SELECT u FROM user u WHERE u.lastname = :lastname")
-    , @NamedQuery(name = "user.findByDateOfBirth", query = "SELECT u FROM user u WHERE u.dateOfBirth = :dateOfBirth")
-    , @NamedQuery(name = "user.findByRegisterDate", query = "SELECT u FROM user u WHERE u.registerDate = :registerDate")
-    , @NamedQuery(name = "user.findByPhoneNumber", query = "SELECT u FROM user u WHERE u.phoneNumber = :phoneNumber")
-    , @NamedQuery(name = "user.findByRoleID", query = "SELECT u FROM user u WHERE u.roleID = :roleID")
-    , @NamedQuery(name = "user.findByGender", query = "SELECT u FROM user u WHERE u.gender = :gender")
-    , @NamedQuery(name = "user.findByStatus", query = "SELECT u FROM user u WHERE u.status = :status")
-    , @NamedQuery(name = "user.findByPrimayryAddress", query = "SELECT u FROM user u WHERE u.primayryAddress = :primayryAddress")
-    , @NamedQuery(name = "user.findBySencondAddress", query = "SELECT u FROM user u WHERE u.sencondAddress = :sencondAddress")})
-public class user implements Serializable {
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+    , @NamedQuery(name = "User.findByUserID", query = "SELECT u FROM User u WHERE u.userID = :userID")
+    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+    , @NamedQuery(name = "User.findByLikeEmail", query = "SELECT u FROM User u WHERE u.email LIKE :email")
+    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
+    , @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname")
+    , @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")
+    , @NamedQuery(name = "User.findByDateOfBirth", query = "SELECT u FROM User u WHERE u.dateOfBirth = :dateOfBirth")
+    , @NamedQuery(name = "User.findByRegisterDate", query = "SELECT u FROM User u WHERE u.registerDate = :registerDate")
+    , @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber")
+    , @NamedQuery(name = "User.findByGender", query = "SELECT u FROM User u WHERE u.gender = :gender")
+    , @NamedQuery(name = "User.findByStatus", query = "SELECT u FROM User u WHERE u.status = :status")
+    , @NamedQuery(name = "User.findByPrimayryAddress", query = "SELECT u FROM User u WHERE u.primayryAddress = :primayryAddress")
+    , @NamedQuery(name = "User.findBySencondAddress", query = "SELECT u FROM User u WHERE u.sencondAddress = :sencondAddress")})
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -76,8 +76,6 @@ public class user implements Serializable {
     private Date registerDate;
     @Column(name = "phoneNumber")
     private Integer phoneNumber;
-    @Column(name = "roleID")
-    private Integer roleID;
     @Column(name = "gender")
     private Boolean gender;
     @Lob
@@ -89,28 +87,29 @@ public class user implements Serializable {
     private String primayryAddress;
     @Column(name = "sencondAddress", length = 255)
     private String sencondAddress;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
-    private List<role> roleList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<tracking> trackingList;
+    private List<Tracking> trackingList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private professional professional;
+    private Professional professional;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
-    private List<project> projectList;
+    private List<Project> projectList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
-    private List<story> storyList;
+    private List<Story> storyList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
-    private List<orders> ordersList;
+    private List<Orders> ordersList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
-    private List<ideabook> ideabookList;
+    private List<Ideabook> ideabookList;
     @JoinColumn(name = "cityCode", referencedColumnName = "cityCode", nullable = false)
     @ManyToOne(optional = false)
-    private Tlcity cityCode;
+    private City cityCode;
+    @JoinColumn(name = "roleID", referencedColumnName = "roleID", nullable = false)
+    @ManyToOne(optional = false)
+    private Role roleID;
 
-    public user() {
+    public User() {
     }
 
-    public user(Integer userID) {
+    public User(Integer userID) {
         this.userID = userID;
     }
 
@@ -178,14 +177,6 @@ public class user implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Integer getRoleID() {
-        return roleID;
-    }
-
-    public void setRoleID(Integer roleID) {
-        this.roleID = roleID;
-    }
-
     public Boolean getGender() {
         return gender;
     }
@@ -227,73 +218,72 @@ public class user implements Serializable {
     }
 
     @XmlTransient
-    public List<role> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<role> roleList) {
-        this.roleList = roleList;
-    }
-
-    @XmlTransient
-    public List<tracking> getTrackingList() {
+    public List<Tracking> getTrackingList() {
         return trackingList;
     }
 
-    public void setTrackingList(List<tracking> trackingList) {
+    public void setTrackingList(List<Tracking> trackingList) {
         this.trackingList = trackingList;
     }
 
-    public professional getProfessional() {
+    public Professional getProfessional() {
         return professional;
     }
 
-    public void setProfessional(professional professional) {
+    public void setProfessional(Professional professional) {
         this.professional = professional;
     }
 
     @XmlTransient
-    public List<project> getProjectList() {
+    public List<Project> getProjectList() {
         return projectList;
     }
 
-    public void setProjectList(List<project> projectList) {
+    public void setProjectList(List<Project> projectList) {
         this.projectList = projectList;
     }
 
     @XmlTransient
-    public List<story> getStoryList() {
+    public List<Story> getStoryList() {
         return storyList;
     }
 
-    public void setStoryList(List<story> storyList) {
+    public void setStoryList(List<Story> storyList) {
         this.storyList = storyList;
     }
 
     @XmlTransient
-    public List<orders> getOrdersList() {
+    public List<Orders> getOrdersList() {
         return ordersList;
     }
 
-    public void setOrdersList(List<orders> ordersList) {
+    public void setOrdersList(List<Orders> ordersList) {
         this.ordersList = ordersList;
     }
 
     @XmlTransient
-    public List<ideabook> getIdeabookList() {
+    public List<Ideabook> getIdeabookList() {
         return ideabookList;
     }
 
-    public void setIdeabookList(List<ideabook> ideabookList) {
+    public void setIdeabookList(List<Ideabook> ideabookList) {
         this.ideabookList = ideabookList;
     }
 
-    public Tlcity getCityCode() {
+    public City getCityCode() {
         return cityCode;
     }
 
-    public void setCityCode(Tlcity cityCode) {
+    public void setCityCode(City cityCode) {
         this.cityCode = cityCode;
+    }
+
+    public Role getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(Role roleID) {
+        this.roleID = roleID;
     }
 
     @Override
@@ -306,10 +296,10 @@ public class user implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof user)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        user other = (user) object;
+        User other = (User) object;
         if ((this.userID == null && other.userID != null) || (this.userID != null && !this.userID.equals(other.userID))) {
             return false;
         }
@@ -318,7 +308,7 @@ public class user implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.user[ userID=" + userID + " ]";
+        return "hd.entity.User[ userID=" + userID + " ]";
     }
     
 }

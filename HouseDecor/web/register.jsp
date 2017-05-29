@@ -1,111 +1,133 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head> 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="assets/css/style.css" rel="stylesheet" />
+        <title>Admin</title>
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="assets/css/datepicker.css" rel="stylesheet" />
+        <script src='https://code.jquery.com/jquery-1.10.0.min.js'></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/bootstrap-datepicker.js"></script>
+        <script src='assets/js/jquery-2.1.1.min.js'></script>
+        <script src='assets/js/jquery.validate.js'></script>
+        <script src='assets/js/signup-form.js'></script>
+    </head>
+    <body style="background: #f4f4f4 !important;">
+
+        <div id="mainArea">
+            <div class="wellcome_container">                
+                <div class="wellcome_header_container">
+                    <div class="wellcome_tour_hearder">Introduce Your self</div>
+                </div>
+                <div class="Wellcome_body_container">
+
+                    <form id="userDetailsForm" method="post" action="RegisterServlet" class="form-horizontal">
+                        <div class="projectDetails">
+                            <div class="user-details-intro">Tell us a little about you</div>
+                            <div class="rowReg" style="margin: auto">
+                                <label  class="lableInput" style="text-align: center">
+                                    Email
+
+                                </label> 
+                                <input required type="email" class="inputReg" id="email" name="email"value="" placeholder="Email">
+                                <span><b><c:if test="${emailIsExist!= null}" >
+                                            <c:out value="${emailIsExist}"/>
+                                        </c:if>
+                                    </b></span>
+                            </div>
+                            <div class="rowReg" style="margin: auto">
+                                <label  class="lableInput" style="text-align: center">
+                                    Password
+
+                                </label>
+                                <input required type="password" class="inputReg" id="password" name="password" value="" placeholder="Password">
+                            </div>
+                            <div class="rowReg" style="margin: auto">
+                                <label  class="lableInput" style="text-align: center">
+                                    First Name
+                                    <small>(publicly displayed)</small>
+                                </label>
+                                <input required type="text" class="inputReg" id="firstName" name="firstName" placeholder="First Name" value="">
+                            </div>
+                            <div class="rowReg" style="margin: auto">
+                                <label  class="lableInput" style="text-align: center">
+                                    Last Name
+                                    <small>(publicly displayed)</small>
+                                </label>
+                                <input required type="text" class="inputReg" id="lastname" name="lastName" placeholder="Last Name" value="">
+                            </div>
 
 
-		<!-- Website CSS style -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+                            <div class="rowReg" style="margin: auto">
+                                <label  class="lableInput" style="text-align: center; margin-right: 30px;">
+                                    BirthDay                              
+                                </label>
+                                <input required type="text" id="timeCheckIn" class="inputReg" placeholder="Birthday" name="birthDay"/>
+                            </div>  
+                            <div class="rowReg" style="margin: auto">
+                                <label  class="lableInput" style="text-align: center; margin-right: 30px;">
+                                    Gender                               
+                                </label>
+                                <input type="radio" id="male" name="gender" value="1">Male
+                                <input type="radio"  id="famale" name="gender" value="0">Famale
 
-		<!-- Website Font style -->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		<link rel="stylesheet" href="style.css">
-		<!-- Google Fonts -->
-		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+                            </div>
+                            <div class="rowReg" style="margin: auto">
+                                <label  class="lableInput" style="text-align: center">
+                                    Phone
 
-		<title>Admin</title>
-	</head>
-	<body>
-		<div class="container">
-			<div class="row main">
-				<div class="main-login main-center">
-				<h5>Sign up once and watch any of our free demos.</h5>
-					<form class="" method="post" action="MainServlet">
+                                </label>
+                                <input required type="text" class="inputReg" id="phone" name="phone" placeholder="Phone" value="">
+                            </div>
+                            <div class="rowReg" style="margin: auto">
+                                <label  class="lableInput" style="text-align: center; margin-right: 30px;">
+                                    City                               
+                                </label>
+                                <select name="city">
+                                    <option value="HCM">Ho Chi Minh</option>
+                                    <option value="HN">Ha Noi</option>
+                                    <option value="DN">Da Nang</option>
 
-						<div class="form-group">
-							<label for="email" class="cols-sm-2 control-label">Your Email</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
-								</div>
-							</div>
-						</div>
+                                </select>
 
-						<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">Password</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
-								</div>
-							</div>
-						</div>
+                            </div>
+                            <div class="rowReg" style="margin: auto">
+                                <label  class="lableInput" style="text-align: center">
+                                    Address
+                                </label>
 
-						
-						<div class="form-group">
-							<label for="firstname" class="cols-sm-2 control-label">Firstname</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="firstname" id="firstname"  placeholder="Enter your firstname"/>
-								</div>
-							</div>
-						</div>
-                                                
-                                                
-						<div class="form-group">
-							<label for="lastname" class="cols-sm-2 control-label">Lastname</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="lastname" id="lastname"  placeholder="Enter your lastname"/>
-								</div>
-							</div>
-						</div>
-                                                
-                                                <div class="form-group">
-							<label for="birthday" class="cols-sm-2 control-label">Birthday</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                                                        <input type="date" class="form-control" name="birthday" id="birthday"  placeholder="Enter your birthday"/>
-								</div>
-							</div>
-						</div>
-                                                
-                                                <div class="form-group">
-							<label for="phone" class="cols-sm-2 control-label">Phone</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                                                        <input type="number" class="form-control" name="phone" id="phone"  placeholder="Enter your phone"/>
-								</div>
-							</div>
-						</div>
-                                            
-                                                <div class="form-group">
-							<label for="gender" class="cols-sm-2 control-label">Gender</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                                                        <input type="text" class="form-control" name="gender" id="gender"  placeholder="Enter your gender"/>
-								</div>
-							</div>
-						</div>
-						<div class="form-group ">
-                                                    <input type="submit" name="btAction" id="register" value="register">
-						</div>
-						
-					</form>
-				</div>
-			</div>
-		</div>
 
-		 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-	</body>
+                                <textarea rows="2" cols="37" value="" name="address"></textarea>
+                            </div>
+                        </div>
+                        <div class="welcome-tour__footer-container">
+                            <button class="btn btn-success ">Register</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                var nowTemp = new Date();
+                var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+                var checkin = $('#timeCheckIn').datepicker({
+                    onRender: function (date) {
+                        return date.valueOf() > now.valueOf() ? 'disabled' : '';
+                    },
+                    format:'dd/mm/yyyy'
+                }).on('changeDate', function (ev) {}).data('datepicker');
+                
+            });
+        </script>
+
+
+
+
+    </body>
 </html>

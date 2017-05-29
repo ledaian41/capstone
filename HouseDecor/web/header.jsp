@@ -5,11 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
     </head>
     <body>
         <!--NAVBAR SECTION-->
@@ -45,11 +47,30 @@
                                 <i class="fa fa-shopping-cart"></i>    
                             </a>
                         </li>
-                        
-                        <li style="margin-left: 20px;">
-                            <a href="#contact">
-                                <i class="fa fa-user"></i> 
-                            </a>
+
+                        <li style="margin-left: 20px;margin-top: 7px;">
+                            <!--<c:out value="${user.email}"/>-->
+
+
+                            <div class="dropdown">
+                                <a href="CheckLoginServlet" class="dropbtn">
+                                    <i class="fa fa-user"></i> 
+                                </a>
+                                <c:if test="${user.userID != null}">
+                                    <div class="dropdown-content">
+
+                                        <a href="#">
+                                            <c:out value="${user.email}"/>
+                                        </a>
+                                        <a href="ProfileServlet">Edit profile</a>
+                                        <a href="#">Your IdeaBook</a>
+                                        <a href="#">Your Order</a>
+                                        <a href="LogoutServlet">Sign Out</a>
+
+
+                                    </div>
+                                </c:if>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -57,7 +78,7 @@
             <div class="houzz-header-secondary" id="menu">
                 <ul class="header-nav-rooms">
                     <li class="header-nav-room">
-                        <a class="menu-title" href="">
+                        <a class="menu-title" href="photo.jsp">
                             <span class="fa fa-picture-o fa">Photos</span>
                         </a>
                     </li>
@@ -80,5 +101,6 @@
             </div>
         </div>
         <!--END NAVBAR SECTION-->
+        
     </body>
 </html>

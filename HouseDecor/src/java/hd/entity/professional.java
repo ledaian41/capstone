@@ -27,11 +27,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tblprofessional", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "professional.findAll", query = "SELECT p FROM professional p")
-    , @NamedQuery(name = "professional.findByNameProfessional", query = "SELECT p FROM professional p WHERE p.nameProfessional = :nameProfessional")
-    , @NamedQuery(name = "professional.findByAddress", query = "SELECT p FROM professional p WHERE p.address = :address")
-    , @NamedQuery(name = "professional.findByUserID", query = "SELECT p FROM professional p WHERE p.userID = :userID")})
-public class professional implements Serializable {
+    @NamedQuery(name = "Professional.findAll", query = "SELECT p FROM Professional p")
+    , @NamedQuery(name = "Professional.findByNameProfessional", query = "SELECT p FROM Professional p WHERE p.nameProfessional = :nameProfessional")
+    , @NamedQuery(name = "Professional.findByAddress", query = "SELECT p FROM Professional p WHERE p.address = :address")
+    , @NamedQuery(name = "Professional.findByUserID", query = "SELECT p FROM Professional p WHERE p.userID = :userID")})
+public class Professional implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Column(name = "nameProfessional", length = 45)
@@ -44,17 +44,17 @@ public class professional implements Serializable {
     private Integer userID;
     @JoinColumn(name = "tblTypeOfWork_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private typeofwork tblTypeOfWorkid;
+    private Typeofwork tblTypeOfWorkid;
     @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
-    private user user;
+    private User user;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "professional")
-    private seller seller;
+    private Seller seller;
 
-    public professional() {
+    public Professional() {
     }
 
-    public professional(Integer userID) {
+    public Professional(Integer userID) {
         this.userID = userID;
     }
 
@@ -82,27 +82,27 @@ public class professional implements Serializable {
         this.userID = userID;
     }
 
-    public typeofwork getTblTypeOfWorkid() {
+    public Typeofwork getTblTypeOfWorkid() {
         return tblTypeOfWorkid;
     }
 
-    public void setTblTypeOfWorkid(typeofwork tblTypeOfWorkid) {
+    public void setTblTypeOfWorkid(Typeofwork tblTypeOfWorkid) {
         this.tblTypeOfWorkid = tblTypeOfWorkid;
     }
 
-    public user getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(user user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public seller getSeller() {
+    public Seller getSeller() {
         return seller;
     }
 
-    public void setSeller(seller seller) {
+    public void setSeller(Seller seller) {
         this.seller = seller;
     }
 
@@ -116,10 +116,10 @@ public class professional implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof professional)) {
+        if (!(object instanceof Professional)) {
             return false;
         }
-        professional other = (professional) object;
+        Professional other = (Professional) object;
         if ((this.userID == null && other.userID != null) || (this.userID != null && !this.userID.equals(other.userID))) {
             return false;
         }
@@ -128,7 +128,7 @@ public class professional implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.professional[ userID=" + userID + " ]";
+        return "hd.entity.Professional[ userID=" + userID + " ]";
     }
     
 }

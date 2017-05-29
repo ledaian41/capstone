@@ -21,15 +21,15 @@ public class TrackingPK implements Serializable {
     @Column(name = "userID", nullable = false)
     private int userID;
     @Basic(optional = false)
-    @Column(name = "tblCategory_categoryID", nullable = false)
-    private int tblCategorycategoryID;
+    @Column(name = "categoryID", nullable = false)
+    private int categoryID;
 
     public TrackingPK() {
     }
 
-    public TrackingPK(int userID, int tblCategorycategoryID) {
+    public TrackingPK(int userID, int categoryID) {
         this.userID = userID;
-        this.tblCategorycategoryID = tblCategorycategoryID;
+        this.categoryID = categoryID;
     }
 
     public int getUserID() {
@@ -40,19 +40,19 @@ public class TrackingPK implements Serializable {
         this.userID = userID;
     }
 
-    public int getTblCategorycategoryID() {
-        return tblCategorycategoryID;
+    public int getCategoryID() {
+        return categoryID;
     }
 
-    public void setTblCategorycategoryID(int tblCategorycategoryID) {
-        this.tblCategorycategoryID = tblCategorycategoryID;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) userID;
-        hash += (int) tblCategorycategoryID;
+        hash += (int) categoryID;
         return hash;
     }
 
@@ -66,7 +66,7 @@ public class TrackingPK implements Serializable {
         if (this.userID != other.userID) {
             return false;
         }
-        if (this.tblCategorycategoryID != other.tblCategorycategoryID) {
+        if (this.categoryID != other.categoryID) {
             return false;
         }
         return true;
@@ -74,7 +74,7 @@ public class TrackingPK implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.TrackingPK[ userID=" + userID + ", tblCategorycategoryID=" + tblCategorycategoryID + " ]";
+        return "hd.entity.TrackingPK[ userID=" + userID + ", categoryID=" + categoryID + " ]";
     }
     
 }

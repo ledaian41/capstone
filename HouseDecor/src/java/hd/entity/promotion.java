@@ -31,14 +31,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tblpromotion", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "promotion.findAll", query = "SELECT p FROM promotion p")
-    , @NamedQuery(name = "promotion.findById", query = "SELECT p FROM promotion p WHERE p.id = :id")
-    , @NamedQuery(name = "promotion.findByName", query = "SELECT p FROM promotion p WHERE p.name = :name")
-    , @NamedQuery(name = "promotion.findByDescription", query = "SELECT p FROM promotion p WHERE p.description = :description")
-    , @NamedQuery(name = "promotion.findByStatus", query = "SELECT p FROM promotion p WHERE p.status = :status")
-    , @NamedQuery(name = "promotion.findByStartDate", query = "SELECT p FROM promotion p WHERE p.startDate = :startDate")
-    , @NamedQuery(name = "promotion.findByEndDate", query = "SELECT p FROM promotion p WHERE p.endDate = :endDate")})
-public class promotion implements Serializable {
+    @NamedQuery(name = "Promotion.findAll", query = "SELECT p FROM Promotion p")
+    , @NamedQuery(name = "Promotion.findById", query = "SELECT p FROM Promotion p WHERE p.id = :id")
+    , @NamedQuery(name = "Promotion.findByName", query = "SELECT p FROM Promotion p WHERE p.name = :name")
+    , @NamedQuery(name = "Promotion.findByDescription", query = "SELECT p FROM Promotion p WHERE p.description = :description")
+    , @NamedQuery(name = "Promotion.findByStatus", query = "SELECT p FROM Promotion p WHERE p.status = :status")
+    , @NamedQuery(name = "Promotion.findByStartDate", query = "SELECT p FROM Promotion p WHERE p.startDate = :startDate")
+    , @NamedQuery(name = "Promotion.findByEndDate", query = "SELECT p FROM Promotion p WHERE p.endDate = :endDate")})
+public class Promotion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -59,12 +59,12 @@ public class promotion implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date endDate;
     @ManyToMany(mappedBy = "promotionList")
-    private List<product> productList;
+    private List<Product> productList;
 
-    public promotion() {
+    public Promotion() {
     }
 
-    public promotion(Integer id) {
+    public Promotion(Integer id) {
         this.id = id;
     }
 
@@ -117,11 +117,11 @@ public class promotion implements Serializable {
     }
 
     @XmlTransient
-    public List<product> getProductList() {
+    public List<Product> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<product> productList) {
+    public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
 
@@ -135,10 +135,10 @@ public class promotion implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof promotion)) {
+        if (!(object instanceof Promotion)) {
             return false;
         }
-        promotion other = (promotion) object;
+        Promotion other = (Promotion) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -147,7 +147,7 @@ public class promotion implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.promotion[ id=" + id + " ]";
+        return "hd.entity.Promotion[ id=" + id + " ]";
     }
     
 }

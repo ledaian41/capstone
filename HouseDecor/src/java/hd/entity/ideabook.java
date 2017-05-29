@@ -31,13 +31,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tblideabook", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ideabook.findAll", query = "SELECT i FROM ideabook i")
-    , @NamedQuery(name = "ideabook.findByIdeaBookID", query = "SELECT i FROM ideabook i WHERE i.ideaBookID = :ideaBookID")
-    , @NamedQuery(name = "ideabook.findByTitle", query = "SELECT i FROM ideabook i WHERE i.title = :title")
-    , @NamedQuery(name = "ideabook.findByDescription", query = "SELECT i FROM ideabook i WHERE i.description = :description")
-    , @NamedQuery(name = "ideabook.findByIsPublic", query = "SELECT i FROM ideabook i WHERE i.isPublic = :isPublic")
-    , @NamedQuery(name = "ideabook.findByStatus", query = "SELECT i FROM ideabook i WHERE i.status = :status")})
-public class ideabook implements Serializable {
+    @NamedQuery(name = "Ideabook.findAll", query = "SELECT i FROM Ideabook i")
+    , @NamedQuery(name = "Ideabook.findByIdeaBookID", query = "SELECT i FROM Ideabook i WHERE i.ideaBookID = :ideaBookID")
+    , @NamedQuery(name = "Ideabook.findByTitle", query = "SELECT i FROM Ideabook i WHERE i.title = :title")
+    , @NamedQuery(name = "Ideabook.findByDescription", query = "SELECT i FROM Ideabook i WHERE i.description = :description")
+    , @NamedQuery(name = "Ideabook.findByIsPublic", query = "SELECT i FROM Ideabook i WHERE i.isPublic = :isPublic")
+    , @NamedQuery(name = "Ideabook.findByStatus", query = "SELECT i FROM Ideabook i WHERE i.status = :status")})
+public class Ideabook implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,15 +57,15 @@ public class ideabook implements Serializable {
         @JoinColumn(name = "tblIdeaBook_ideaBookID", referencedColumnName = "ideaBookID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "tblIdeaBookPhoto_photoID", referencedColumnName = "photoID", nullable = false)})
     @ManyToMany
-    private List<ideabookphoto> ideabookphotoList;
+    private List<Ideabookphoto> ideabookphotoList;
     @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false)
     @ManyToOne(optional = false)
-    private user userID;
+    private User userID;
 
-    public ideabook() {
+    public Ideabook() {
     }
 
-    public ideabook(Integer ideaBookID) {
+    public Ideabook(Integer ideaBookID) {
         this.ideaBookID = ideaBookID;
     }
 
@@ -110,19 +110,19 @@ public class ideabook implements Serializable {
     }
 
     @XmlTransient
-    public List<ideabookphoto> getIdeabookphotoList() {
+    public List<Ideabookphoto> getIdeabookphotoList() {
         return ideabookphotoList;
     }
 
-    public void setIdeabookphotoList(List<ideabookphoto> ideabookphotoList) {
+    public void setIdeabookphotoList(List<Ideabookphoto> ideabookphotoList) {
         this.ideabookphotoList = ideabookphotoList;
     }
 
-    public user getUserID() {
+    public User getUserID() {
         return userID;
     }
 
-    public void setUserID(user userID) {
+    public void setUserID(User userID) {
         this.userID = userID;
     }
 
@@ -136,10 +136,10 @@ public class ideabook implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ideabook)) {
+        if (!(object instanceof Ideabook)) {
             return false;
         }
-        ideabook other = (ideabook) object;
+        Ideabook other = (Ideabook) object;
         if ((this.ideaBookID == null && other.ideaBookID != null) || (this.ideaBookID != null && !this.ideaBookID.equals(other.ideaBookID))) {
             return false;
         }
@@ -148,7 +148,7 @@ public class ideabook implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.ideabook[ ideaBookID=" + ideaBookID + " ]";
+        return "hd.entity.Ideabook[ ideaBookID=" + ideaBookID + " ]";
     }
     
 }

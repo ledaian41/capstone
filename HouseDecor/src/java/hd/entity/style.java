@@ -42,7 +42,7 @@ public class Style implements Serializable {
     private Integer styleID;
     @Column(name = "name", length = 45)
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblStylestyleID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "styleID")
     private List<Ideabookphoto> ideabookphotoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblStylestyleID")
     private List<Productphoto> productphotoList;

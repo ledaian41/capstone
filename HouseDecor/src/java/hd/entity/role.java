@@ -6,18 +6,20 @@
 package hd.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,10 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tblrole", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "role.findAll", query = "SELECT r FROM role r")
-    , @NamedQuery(name = "role.findByRoleID", query = "SELECT r FROM role r WHERE r.roleID = :roleID")
-    , @NamedQuery(name = "role.findByRoleName", query = "SELECT r FROM role r WHERE r.roleName = :roleName")})
-public class role implements Serializable {
+    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
+    , @NamedQuery(name = "Role.findByRoleID", query = "SELECT r FROM Role r WHERE r.roleID = :roleID")
+    , @NamedQuery(name = "Role.findByRoleName", query = "SELECT r FROM Role r WHERE r.roleName = :roleName")})
+public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,14 +42,13 @@ public class role implements Serializable {
     private Integer roleID;
     @Column(name = "roleName", length = 50)
     private String roleName;
-    @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false)
-    @ManyToOne(optional = false)
-    private user userID;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleID")
+    private List<User> userList;
 
-    public role() {
+    public Role() {
     }
 
-    public role(Integer roleID) {
+    public Role(Integer roleID) {
         this.roleID = roleID;
     }
 
@@ -67,12 +68,13 @@ public class role implements Serializable {
         this.roleName = roleName;
     }
 
-    public user getUserID() {
-        return userID;
+    @XmlTransient
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setUserID(user userID) {
-        this.userID = userID;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     @Override
@@ -85,10 +87,10 @@ public class role implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof role)) {
+        if (!(object instanceof Role)) {
             return false;
         }
-        role other = (role) object;
+        Role other = (Role) object;
         if ((this.roleID == null && other.roleID != null) || (this.roleID != null && !this.roleID.equals(other.roleID))) {
             return false;
         }
@@ -97,7 +99,7 @@ public class role implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.role[ roleID=" + roleID + " ]";
+        return "hd.entity.Role[ roleID=" + roleID + " ]";
     }
     
 }

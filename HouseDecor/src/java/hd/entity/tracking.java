@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Tracking.findByCount", query = "SELECT t FROM Tracking t WHERE t.count = :count")
     , @NamedQuery(name = "Tracking.findByLastUpdate", query = "SELECT t FROM Tracking t WHERE t.lastUpdate = :lastUpdate")
     , @NamedQuery(name = "Tracking.findByUserID", query = "SELECT t FROM Tracking t WHERE t.trackingPK.userID = :userID")
-    , @NamedQuery(name = "Tracking.findByTblCategorycategoryID", query = "SELECT t FROM Tracking t WHERE t.trackingPK.tblCategorycategoryID = :tblCategorycategoryID")})
+    , @NamedQuery(name = "Tracking.findByCategoryID", query = "SELECT t FROM Tracking t WHERE t.trackingPK.categoryID = :categoryID")})
 public class Tracking implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,7 +42,7 @@ public class Tracking implements Serializable {
     @Column(name = "lastUpdate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @JoinColumn(name = "tblCategory_categoryID", referencedColumnName = "categoryID", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "categoryID", referencedColumnName = "categoryID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Category category;
     @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
@@ -56,8 +56,8 @@ public class Tracking implements Serializable {
         this.trackingPK = trackingPK;
     }
 
-    public Tracking(int userID, int tblCategorycategoryID) {
-        this.trackingPK = new TrackingPK(userID, tblCategorycategoryID);
+    public Tracking(int userID, int categoryID) {
+        this.trackingPK = new TrackingPK(userID, categoryID);
     }
 
     public TrackingPK getTrackingPK() {

@@ -11,12 +11,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author cuk3t
  */
-public class MainServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,13 +33,9 @@ public class MainServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String button = request.getParameter("btAction");
-             if(button.equals("register")){
-                 request.getRequestDispatcher("registerServlet").forward(request, response);
-             }
-             else if(button.equals("login")){
-                 request.getRequestDispatcher("LoginServlet").forward(request, response);
-             }
+            HttpSession session = request.getSession();
+            session.removeAttribute("user");
+            request.getRequestDispatcher("home.jsp").forward(request, response);
         }
     }
 

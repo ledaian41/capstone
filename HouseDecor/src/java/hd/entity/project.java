@@ -34,16 +34,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tblproject", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "project.findAll", query = "SELECT p FROM project p")
-    , @NamedQuery(name = "project.findByProjectID", query = "SELECT p FROM project p WHERE p.projectID = :projectID")
-    , @NamedQuery(name = "project.findByProjectName", query = "SELECT p FROM project p WHERE p.projectName = :projectName")
-    , @NamedQuery(name = "project.findByAddress", query = "SELECT p FROM project p WHERE p.address = :address")
-    , @NamedQuery(name = "project.findByCost", query = "SELECT p FROM project p WHERE p.cost = :cost")
-    , @NamedQuery(name = "project.findByWebsite", query = "SELECT p FROM project p WHERE p.website = :website")
-    , @NamedQuery(name = "project.findByYear", query = "SELECT p FROM project p WHERE p.year = :year")
-    , @NamedQuery(name = "project.findByKeywords", query = "SELECT p FROM project p WHERE p.keywords = :keywords")
-    , @NamedQuery(name = "project.findByStatus", query = "SELECT p FROM project p WHERE p.status = :status")})
-public class project implements Serializable {
+    @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p")
+    , @NamedQuery(name = "Project.findByProjectID", query = "SELECT p FROM Project p WHERE p.projectID = :projectID")
+    , @NamedQuery(name = "Project.findByProjectName", query = "SELECT p FROM Project p WHERE p.projectName = :projectName")
+    , @NamedQuery(name = "Project.findByAddress", query = "SELECT p FROM Project p WHERE p.address = :address")
+    , @NamedQuery(name = "Project.findByCost", query = "SELECT p FROM Project p WHERE p.cost = :cost")
+    , @NamedQuery(name = "Project.findByWebsite", query = "SELECT p FROM Project p WHERE p.website = :website")
+    , @NamedQuery(name = "Project.findByYear", query = "SELECT p FROM Project p WHERE p.year = :year")
+    , @NamedQuery(name = "Project.findByKeywords", query = "SELECT p FROM Project p WHERE p.keywords = :keywords")
+    , @NamedQuery(name = "Project.findByStatus", query = "SELECT p FROM Project p WHERE p.status = :status")})
+public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,16 +67,16 @@ public class project implements Serializable {
     private String keywords;
     @Column(name = "status")
     private Integer status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblProjectprojectID")
-    private List<ideabookphoto> ideabookphotoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectID")
+    private List<Ideabookphoto> ideabookphotoList;
     @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false)
     @ManyToOne(optional = false)
-    private user userID;
+    private User userID;
 
-    public project() {
+    public Project() {
     }
 
-    public project(Integer projectID) {
+    public Project(Integer projectID) {
         this.projectID = projectID;
     }
 
@@ -145,19 +145,19 @@ public class project implements Serializable {
     }
 
     @XmlTransient
-    public List<ideabookphoto> getIdeabookphotoList() {
+    public List<Ideabookphoto> getIdeabookphotoList() {
         return ideabookphotoList;
     }
 
-    public void setIdeabookphotoList(List<ideabookphoto> ideabookphotoList) {
+    public void setIdeabookphotoList(List<Ideabookphoto> ideabookphotoList) {
         this.ideabookphotoList = ideabookphotoList;
     }
 
-    public user getUserID() {
+    public User getUserID() {
         return userID;
     }
 
-    public void setUserID(user userID) {
+    public void setUserID(User userID) {
         this.userID = userID;
     }
 
@@ -171,10 +171,10 @@ public class project implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof project)) {
+        if (!(object instanceof Project)) {
             return false;
         }
-        project other = (project) object;
+        Project other = (Project) object;
         if ((this.projectID == null && other.projectID != null) || (this.projectID != null && !this.projectID.equals(other.projectID))) {
             return false;
         }
@@ -183,7 +183,7 @@ public class project implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.project[ projectID=" + projectID + " ]";
+        return "hd.entity.Project[ projectID=" + projectID + " ]";
     }
     
 }

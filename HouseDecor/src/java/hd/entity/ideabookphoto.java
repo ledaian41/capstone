@@ -30,13 +30,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tblideabookphoto", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ideabookphoto.findAll", query = "SELECT i FROM ideabookphoto i")
-    , @NamedQuery(name = "ideabookphoto.findByPhotoID", query = "SELECT i FROM ideabookphoto i WHERE i.photoID = :photoID")
-    , @NamedQuery(name = "ideabookphoto.findByUrl", query = "SELECT i FROM ideabookphoto i WHERE i.url = :url")
-    , @NamedQuery(name = "ideabookphoto.findByTilte", query = "SELECT i FROM ideabookphoto i WHERE i.tilte = :tilte")
-    , @NamedQuery(name = "ideabookphoto.findByDescription", query = "SELECT i FROM ideabookphoto i WHERE i.description = :description")
-    , @NamedQuery(name = "ideabookphoto.findByStatus", query = "SELECT i FROM ideabookphoto i WHERE i.status = :status")})
-public class ideabookphoto implements Serializable {
+    @NamedQuery(name = "Ideabookphoto.findAll", query = "SELECT i FROM Ideabookphoto i")
+    , @NamedQuery(name = "Ideabookphoto.findByPhotoID", query = "SELECT i FROM Ideabookphoto i WHERE i.photoID = :photoID")
+    , @NamedQuery(name = "Ideabookphoto.findByUrl", query = "SELECT i FROM Ideabookphoto i WHERE i.url = :url")
+    , @NamedQuery(name = "Ideabookphoto.findByTilte", query = "SELECT i FROM Ideabookphoto i WHERE i.tilte = :tilte")
+    , @NamedQuery(name = "Ideabookphoto.findByDescription", query = "SELECT i FROM Ideabookphoto i WHERE i.description = :description")
+    , @NamedQuery(name = "Ideabookphoto.findByStatus", query = "SELECT i FROM Ideabookphoto i WHERE i.status = :status")})
+public class Ideabookphoto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,21 +53,21 @@ public class ideabookphoto implements Serializable {
     @Column(name = "status")
     private Integer status;
     @ManyToMany(mappedBy = "ideabookphotoList")
-    private List<ideabook> ideabookList;
-    @JoinColumn(name = "tblCategory_categoryID", referencedColumnName = "categoryID", nullable = false)
+    private List<Ideabook> ideabookList;
+    @JoinColumn(name = "categoryID", referencedColumnName = "categoryID", nullable = false)
     @ManyToOne(optional = false)
-    private category tblCategorycategoryID;
-    @JoinColumn(name = "tblProject_projectID", referencedColumnName = "projectID", nullable = false)
+    private Category categoryID;
+    @JoinColumn(name = "projectID", referencedColumnName = "projectID", nullable = false)
     @ManyToOne(optional = false)
-    private project tblProjectprojectID;
-    @JoinColumn(name = "tblStyle_styleID", referencedColumnName = "styleID", nullable = false)
+    private Project projectID;
+    @JoinColumn(name = "styleID", referencedColumnName = "styleID", nullable = false)
     @ManyToOne(optional = false)
-    private style tblStylestyleID;
+    private Style styleID;
 
-    public ideabookphoto() {
+    public Ideabookphoto() {
     }
 
-    public ideabookphoto(Integer photoID) {
+    public Ideabookphoto(Integer photoID) {
         this.photoID = photoID;
     }
 
@@ -112,36 +112,36 @@ public class ideabookphoto implements Serializable {
     }
 
     @XmlTransient
-    public List<ideabook> getIdeabookList() {
+    public List<Ideabook> getIdeabookList() {
         return ideabookList;
     }
 
-    public void setIdeabookList(List<ideabook> ideabookList) {
+    public void setIdeabookList(List<Ideabook> ideabookList) {
         this.ideabookList = ideabookList;
     }
 
-    public category getTblCategorycategoryID() {
-        return tblCategorycategoryID;
+    public Category getCategoryID() {
+        return categoryID;
     }
 
-    public void setTblCategorycategoryID(category tblCategorycategoryID) {
-        this.tblCategorycategoryID = tblCategorycategoryID;
+    public void setCategoryID(Category categoryID) {
+        this.categoryID = categoryID;
     }
 
-    public project getTblProjectprojectID() {
-        return tblProjectprojectID;
+    public Project getProjectID() {
+        return projectID;
     }
 
-    public void setTblProjectprojectID(project tblProjectprojectID) {
-        this.tblProjectprojectID = tblProjectprojectID;
+    public void setProjectID(Project projectID) {
+        this.projectID = projectID;
     }
 
-    public style getTblStylestyleID() {
-        return tblStylestyleID;
+    public Style getStyleID() {
+        return styleID;
     }
 
-    public void setTblStylestyleID(style tblStylestyleID) {
-        this.tblStylestyleID = tblStylestyleID;
+    public void setStyleID(Style styleID) {
+        this.styleID = styleID;
     }
 
     @Override
@@ -154,10 +154,10 @@ public class ideabookphoto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ideabookphoto)) {
+        if (!(object instanceof Ideabookphoto)) {
             return false;
         }
-        ideabookphoto other = (ideabookphoto) object;
+        Ideabookphoto other = (Ideabookphoto) object;
         if ((this.photoID == null && other.photoID != null) || (this.photoID != null && !this.photoID.equals(other.photoID))) {
             return false;
         }
@@ -166,7 +166,7 @@ public class ideabookphoto implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.ideabookphoto[ photoID=" + photoID + " ]";
+        return "hd.entity.Ideabookphoto[ photoID=" + photoID + " ]";
     }
     
 }

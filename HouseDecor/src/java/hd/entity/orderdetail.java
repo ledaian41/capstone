@@ -27,14 +27,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tblorderdetail", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "orderdetail.findAll", query = "SELECT o FROM orderdetail o")
-    , @NamedQuery(name = "orderdetail.findByOrderDetailID", query = "SELECT o FROM orderdetail o WHERE o.orderDetailID = :orderDetailID")
-    , @NamedQuery(name = "orderdetail.findByProductID", query = "SELECT o FROM orderdetail o WHERE o.productID = :productID")
-    , @NamedQuery(name = "orderdetail.findByQuantity", query = "SELECT o FROM orderdetail o WHERE o.quantity = :quantity")
-    , @NamedQuery(name = "orderdetail.findByPrice", query = "SELECT o FROM orderdetail o WHERE o.price = :price")
-    , @NamedQuery(name = "orderdetail.findByStoreID", query = "SELECT o FROM orderdetail o WHERE o.storeID = :storeID")
-    , @NamedQuery(name = "orderdetail.findByStatus", query = "SELECT o FROM orderdetail o WHERE o.status = :status")})
-public class orderdetail implements Serializable {
+    @NamedQuery(name = "Orderdetail.findAll", query = "SELECT o FROM Orderdetail o")
+    , @NamedQuery(name = "Orderdetail.findByOrderDetailID", query = "SELECT o FROM Orderdetail o WHERE o.orderDetailID = :orderDetailID")
+    , @NamedQuery(name = "Orderdetail.findByProductID", query = "SELECT o FROM Orderdetail o WHERE o.productID = :productID")
+    , @NamedQuery(name = "Orderdetail.findByQuantity", query = "SELECT o FROM Orderdetail o WHERE o.quantity = :quantity")
+    , @NamedQuery(name = "Orderdetail.findByPrice", query = "SELECT o FROM Orderdetail o WHERE o.price = :price")
+    , @NamedQuery(name = "Orderdetail.findByStoreID", query = "SELECT o FROM Orderdetail o WHERE o.storeID = :storeID")
+    , @NamedQuery(name = "Orderdetail.findByStatus", query = "SELECT o FROM Orderdetail o WHERE o.status = :status")})
+public class Orderdetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,12 +55,12 @@ public class orderdetail implements Serializable {
     private Integer status;
     @JoinColumn(name = "orderID", referencedColumnName = "orderID", nullable = false)
     @ManyToOne(optional = false)
-    private orders orderID;
+    private Orders orderID;
 
-    public orderdetail() {
+    public Orderdetail() {
     }
 
-    public orderdetail(Integer orderDetailID) {
+    public Orderdetail(Integer orderDetailID) {
         this.orderDetailID = orderDetailID;
     }
 
@@ -112,11 +112,11 @@ public class orderdetail implements Serializable {
         this.status = status;
     }
 
-    public orders getOrderID() {
+    public Orders getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(orders orderID) {
+    public void setOrderID(Orders orderID) {
         this.orderID = orderID;
     }
 
@@ -130,10 +130,10 @@ public class orderdetail implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof orderdetail)) {
+        if (!(object instanceof Orderdetail)) {
             return false;
         }
-        orderdetail other = (orderdetail) object;
+        Orderdetail other = (Orderdetail) object;
         if ((this.orderDetailID == null && other.orderDetailID != null) || (this.orderDetailID != null && !this.orderDetailID.equals(other.orderDetailID))) {
             return false;
         }
@@ -142,7 +142,7 @@ public class orderdetail implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.orderdetail[ orderDetailID=" + orderDetailID + " ]";
+        return "hd.entity.Orderdetail[ orderDetailID=" + orderDetailID + " ]";
     }
     
 }

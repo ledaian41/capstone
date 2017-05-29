@@ -25,11 +25,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tbladmin", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "admin.findAll", query = "SELECT a FROM admin a")
-    , @NamedQuery(name = "admin.findById", query = "SELECT a FROM admin a WHERE a.id = :id")
-    , @NamedQuery(name = "admin.findByPassword", query = "SELECT a FROM admin a WHERE a.password = :password")
-    , @NamedQuery(name = "admin.findByEmail", query = "SELECT a FROM admin a WHERE a.email = :email")})
-public class admin implements Serializable {
+    @NamedQuery(name = "Admin.findAll", query = "SELECT a FROM Admin a")
+    , @NamedQuery(name = "Admin.findById", query = "SELECT a FROM Admin a WHERE a.id = :id")
+    , @NamedQuery(name = "Admin.findByPassword", query = "SELECT a FROM Admin a WHERE a.password = :password")
+    , @NamedQuery(name = "Admin.findByEmail", query = "SELECT a FROM Admin a WHERE a.email = :email")})
+public class Admin implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,10 +42,10 @@ public class admin implements Serializable {
     @Column(name = "email", length = 115)
     private String email;
 
-    public admin() {
+    public Admin() {
     }
 
-    public admin(Integer id) {
+    public Admin(Integer id) {
         this.id = id;
     }
 
@@ -83,10 +83,10 @@ public class admin implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof admin)) {
+        if (!(object instanceof Admin)) {
             return false;
         }
-        admin other = (admin) object;
+        Admin other = (Admin) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -95,7 +95,7 @@ public class admin implements Serializable {
 
     @Override
     public String toString() {
-        return "hd.entity.admin[ id=" + id + " ]";
+        return "hd.entity.Admin[ id=" + id + " ]";
     }
     
 }
