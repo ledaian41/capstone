@@ -5,11 +5,10 @@
  */
 package hd.controller;
 
-import hd.JPA.TbluserJpaController;
-import hd.entity.Tbluser;
+import hd.JPA.UserJpaController;
+import hd.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -44,37 +43,30 @@ public class SetStatusAccountServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             HttpSession session = request.getSession();
-            String url = Constant.LOGIN_PAGE;
+            String url = Constant.LOGIN_ADMIN_PAGE;
             if (session.getAttribute(Constant.ATT_ADMIN) != null) {
                 url = Constant.ERROR_PAGE;
                 int userId = Integer.parseInt(request.getParameter(Constant.PARAM_USER_ID));
-                List<Tbluser> listUser = (List<Tbluser>) session.getAttribute(Constant.ATT_ACCOUNT_LIST);
-                Tbluser account = new Tbluser(userId);
-                for (int i = 0; i < listUser.size(); i++) {
-                    if (userId == listUser.get(i).getUserID()) {
-                        account = listUser.get(i);
+                String action = request.getParameter(Constant.BTN_ACTION);
+                UserJpaController userJpa = new UserJpaController(emf);
+                User account = userJpa.findUser(userId);
+                switch (action) {
+                    case Constant.BLOCK:
+                        account.setStatus(Constant.STATUS_NOT_OK);
+                        userJpa.edit(account);
+                        url = Constant.LOAD_ACCOUNTS_SERVLET + "?" + Constant.BTN_ACTION + "=" + Constant.MEMBER;
+                        if (account.getRoleId().getRoleId() == Constant.ROLE_PROFESSIONAL) {
+                            url = Constant.LOAD_ACCOUNTS_SERVLET + "?" + Constant.BTN_ACTION + "=" + Constant.PROFESSIONAL;
+                        }
                         break;
-                    }
-                }
-                TbluserJpaController jpaUser = new TbluserJpaController(emf);
-                switch (account.getStatus()) {
-                    case Constant.STATUS_ACTIVE:
-                        account.setStatus(Constant.STATUS_DEACTIVE);
-                        jpaUser.edit(account);
-                        url = Constant.LOAD_ACCOUNTS_SERVLET + "?"
-                                + Constant.PARAM_STATUS + "=" + Constant.STATUS_ACTIVE
-                                + "&" + Constant.PARAM_ROLE + "=" + account.getRoleID();
-                        break;
-                    case Constant.STATUS_DEACTIVE:
-                        account.setStatus(Constant.STATUS_ACTIVE);
-                        jpaUser.edit(account);
-                        url = Constant.LOAD_ACCOUNTS_SERVLET + "?"
-                                + Constant.PARAM_STATUS + "=" + Constant.STATUS_DEACTIVE;
+                    case Constant.ACCEPT:
+                        account.setStatus(Constant.STATUS_OK);
+                        userJpa.edit(account);
+                        url = Constant.LOAD_ACCOUNTS_SERVLET + "?" + Constant.BTN_ACTION + "=" + Constant.BLACK_LIST;
                         break;
                 }
             }
-            response.sendRedirect(url);
-//            request.getRequestDispatcher(url).forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         } catch (Exception e) {
             log("ERROR at " + Constant.SET_STATUS_ACCOUNT_SERVLET + ": " + e.getMessage());
             response.sendRedirect(Constant.ERROR_PAGE);

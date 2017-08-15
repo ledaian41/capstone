@@ -5,8 +5,8 @@
  */
 package hd.controller;
 
-import hd.JPA.TbluserJpaController;
-import hd.entity.Tbluser;
+import hd.JPA.UserJpaController;
+import hd.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -45,26 +45,25 @@ public class LoadAccountsServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             HttpSession session = request.getSession();
-            session.removeAttribute(Constant.ATT_ACCOUNT_LIST);
-            String url = Constant.LOGIN_PAGE;
-            int status = Integer.parseInt(request.getParameter(Constant.PARAM_STATUS));
+            String url = Constant.LOGIN_ADMIN_PAGE;
             if (session.getAttribute(Constant.ATT_ADMIN) != null) {
-                TbluserJpaController userJpa = new TbluserJpaController(emf);
-                List<Tbluser> list = new ArrayList<>();
-                switch (status) {
-                    case Constant.STATUS_DEACTIVE:
-                        url = Constant.BLOCK_LIST_PAGE;
-                        list = userJpa.loadAccountsByStatus(status);
-                        break;
-                    case Constant.STATUS_ACTIVE:
-                        int role = Integer.parseInt(request.getParameter(Constant.PARAM_ROLE));
-                        list = userJpa.loadAccountsByStatusAndRole(status, role);
-                        if (role == Constant.ROLE_MEMBER) {
-                            url = Constant.MANAGE_ACCOUNT_MEMBER_PAGE;
-                        } else if (role == Constant.ROLE_PROFESSIONAL) {
-                            url = Constant.MANAGE_ACCOUNT_PROFESSIONAL_PAGE;
-                        }
-                        break;
+                UserJpaController userJpa = new UserJpaController(emf);
+                List<User> list = new ArrayList<>();
+                String button = request.getParameter(Constant.BTN_ACTION).toLowerCase();
+                int status = Constant.STATUS_OK;
+                if (button.equals(Constant.BLACK_LIST)) {
+                    status = Constant.STATUS_NOT_OK;
+                    list = userJpa.loadAccountsByStatus(status);
+                    url = Constant.ACCOUNT_PAGE;
+                } else {
+                    int role = Constant.ROLE_MEMBER;
+                    if (button.equals(Constant.PROFESSIONAL)) {
+                        role = Constant.ROLE_PROFESSIONAL;
+                        list.addAll(userJpa.loadAccountsByStatusAndRole(status, role));
+                        role = Constant.ROLE_SELLER;
+                    }
+                    list.addAll(userJpa.loadAccountsByStatusAndRole(status, role));
+                    url = Constant.ACCOUNT_PAGE;
                 }
                 session.setAttribute(Constant.ATT_ACCOUNT_LIST, list);
             }

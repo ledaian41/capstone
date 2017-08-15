@@ -34,28 +34,45 @@ public class MainAdminServlet extends HttpServlet {
         try {
             String url = "#";
             String button = request.getParameter(Constant.BTN_ACTION).toLowerCase();
-            if (button.equals(Constant.LOGIN)) {
-                url = Constant.LOGIN_ADMIN_SERVLET;
-            } else if (button.equals(Constant.LOGOUT)) {
-                url = Constant.LOGOUT_ADMIN_SERVLET;
-            } else if (button.equals(Constant.VIEWDETAIL)) {
-                url = Constant.LOAD_ACCOUNT_INFO_SERVLET;
-            } else if (button.equals(Constant.BAN_ACCOUNT)) {
-                url = Constant.SET_STATUS_ACCOUNT_SERVLET + "?"
-                        + Constant.PARAM_STATUS + "=" + Constant.STATUS_DEACTIVE;
-            } else if (button.equals(Constant.UNBAN_ACCOUNT)) {
-                url = Constant.SET_STATUS_ACCOUNT_SERVLET + "?"
-                        + Constant.PARAM_STATUS + "=" + Constant.STATUS_ACTIVE;
-            } else if (button.equals(Constant.LOAD)) {
-                url = Constant.LOAD_ACCOUNTS_SERVLET + "?"
-                        + Constant.PARAM_STATUS + "=" + Constant.STATUS_ACTIVE;
-            } else if(button.equals(Constant.LOAD_PROJECT)){
-                url = Constant.LOAD_PROJECT_SERVLET;
+            switch (button) {
+                case Constant.LOGIN:
+                    url = Constant.LOGIN_ADMIN_SERVLET;
+                    break;
+                case Constant.LOGOUT:
+                    url = Constant.LOGOUT_ADMIN_SERVLET;
+                    break;
+                case Constant.VIEWDETAIL:
+                    url = Constant.LOAD_ACCOUNT_INFO_SERVLET;
+                    break;
+                case Constant.ACCEPT:
+                    url = Constant.SET_STATUS_ACCOUNT_SERVLET;
+                    break;
+                case Constant.BLOCK:
+                    url = Constant.SET_STATUS_ACCOUNT_SERVLET;
+                    break;
+                case Constant.MEMBER:
+                    url = Constant.LOAD_ACCOUNTS_SERVLET;
+                    break;
+                case Constant.PROFESSIONAL:
+                    url = Constant.LOAD_ACCOUNTS_SERVLET;
+                    break;
+                case Constant.BLACK_LIST:
+                    url = Constant.LOAD_ACCOUNTS_SERVLET;
+                    break;
+                case Constant.LOAD_SELLERS:
+                    url = Constant.LOAD_SELLERS_SERVLET;
+                    break;
+                case Constant.SELLER_INFO:
+                    url = Constant.LOAD_SELLER_INFO_SERVLET;
+                    break;
+                case "updateseller":
+                    url = Constant.UPDATE_SELLER_DATE_SERVLET;
+                    break;
             }
             request.getRequestDispatcher(url).forward(request, response);
         } catch (Exception e) {
             log("ERROR at " + Constant.MAIN_ADMIN_SERVLET + ": " + e.getMessage());
-            response.sendRedirect(Constant.LOGIN_PAGE);
+            response.sendRedirect(Constant.LOGIN_ADMIN_PAGE);
         } finally {
             out.close();
         }

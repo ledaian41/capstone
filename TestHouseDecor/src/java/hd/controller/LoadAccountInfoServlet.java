@@ -5,14 +5,12 @@
  */
 package hd.controller;
 
-import hd.DTO.AccInfoDTO;
-import hd.DTO.ProjectIdNameDTO;
-import hd.JPA.TblprojectJpaController;
-import hd.entity.Tblproject;
-import hd.entity.Tbluser;
+import hd.JPA.IdeaBookJpaController;
+import hd.JPA.ProjectJpaController;
+import hd.JPA.UserJpaController;
+import hd.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,46 +46,37 @@ public class LoadAccountInfoServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             HttpSession session = request.getSession();
-            String url = Constant.LOGIN_PAGE;
+            String url = Constant.LOGIN_ADMIN_PAGE;
             if (session.getAttribute(Constant.ATT_ADMIN) != null) {
                 url = Constant.ACCOUNT_INFO_PAGE;
                 int userId = Integer.parseInt(request.getParameter(Constant.PARAM_USER_ID));
                 //Load account information
-                List<Tbluser> listUser = (List<Tbluser>) session.getAttribute(Constant.ATT_ACCOUNT_LIST);
-                AccInfoDTO dto = new AccInfoDTO();
-                for (int i = 0; i < listUser.size(); i++) {
-                    if (userId == listUser.get(i).getUserID()) {
-                        //set userID
-                        dto.setUserId(listUser.get(i).getUserID());
-                        //set fullname
-                        dto.setFullname(listUser.get(i).getLastname() + " " + listUser.get(i).getFirstname());
-                        //set birth date
-                        dto.setBirthdate(listUser.get(i).getDateOfBirth());
-                        //set gender
-                        dto.setGender(listUser.get(i).getGender());
-                        //set phone number
-                        dto.setPhoneNumber(listUser.get(i).getPhoneNumber());
-                        //set email
-                        dto.setEmail(listUser.get(i).getEmail());
-                        //set address 1
-                        dto.setAddress1(listUser.get(i).getPrimayryAddress());
-                        //set address 2
-                        dto.setAddress2(listUser.get(i).getSencondAddress());
-                        //set role
-                        dto.setRole(listUser.get(i).getRoleID());
-                        //set register date
-                        dto.setRegisterDate(listUser.get(i).getRegisterDate());
-                        //set about me
-                        dto.setAboutMe(listUser.get(i).getAboutMe());
-                        //set list project
-                        TblprojectJpaController projectJpa = new TblprojectJpaController(emf);
-                        List<ProjectIdNameDTO> listProjectDTO = projectJpa.getProjectIdAndNameByUserId(userId);
-                        dto.setListProject(listProjectDTO);
-                        //set status
-                        dto.setStatus(listUser.get(i).getStatus());
-                        break;
-                    }
+                AccountInfoDTO dto = new AccountInfoDTO(userId);
+                UserJpaController userJpa = new UserJpaController(emf);
+                User user = userJpa.findUser(userId);
+                //set values to DTO
+                dto.setFullname(user.getLastname() + " " + user.getFirstname());
+                dto.setBirthdate(user.getDateOfBirth());
+                dto.setGender(user.getGender());
+                dto.setPhoneNumber(user.getPhoneNumber());
+                dto.setEmail(user.getEmail());
+                dto.setAddress1(user.getPrimaryAddress());
+                dto.setAddress2(user.getSencondAddress());
+                dto.setRole(user.getRoleId().getRoleId());
+                dto.setRegisterDate(user.getRegisterDate());
+                dto.setAboutMe(user.getAboutMe());
+                //set list ideabook
+                IdeaBookJpaController ideabookJpa = new IdeaBookJpaController(emf);
+                List<IdeabookIdNameDTO> listIdeabookDTO = ideabookJpa.getIdeabookIdAndNameByUserId(userId);
+                dto.setListIdeabook(listIdeabookDTO);
+                //set list project
+                if (user.getRoleId().getRoleId() != Constant.ROLE_MEMBER) {
+                    ProjectJpaController projectJpa = new ProjectJpaController(emf);
+                    List<ProjectIdNameDTO> listProjectDTO = projectJpa.getProjectIdAndNameByUserId(userId);
+                    dto.setListProject(listProjectDTO);
                 }
+                //set status
+                dto.setStatus(user.getStatus());
                 request.setAttribute(Constant.ATT_DETAIL, dto);
             }
             request.getRequestDispatcher(url).forward(request, response);

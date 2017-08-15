@@ -36,9 +36,11 @@ public class LogoutAdminServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.removeAttribute(Constant.ATT_ADMIN);
             session.removeAttribute(Constant.ATT_ACCOUNT_LIST);
-            response.sendRedirect(Constant.LOGIN_PAGE);
+            session.removeAttribute(Constant.ATT_LIST);
+            response.sendRedirect(Constant.LOGIN_ADMIN_PAGE);
         } catch (Exception e) {
             log("ERROR at " + Constant.LOGOUT_ADMIN_SERVLET + ": " + e.getMessage());
+            response.sendRedirect(Constant.ERROR_PAGE);
         }
     }
 

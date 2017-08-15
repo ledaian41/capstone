@@ -5,7 +5,7 @@
  */
 package hd.controller;
 
-import hd.JPA.TbladminJpaController;
+import hd.JPA.AdminJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -39,26 +39,29 @@ public class LoginAdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String url = Constant.ERROR_PAGE;
+        PrintWriter out = response.getWriter();
+        try {
+            String url = Constant.LOGIN_ADMIN_PAGE;
             String username = request.getParameter(Constant.PARAM_USERNAME);
             String password = request.getParameter(Constant.PARAM_PASSWORD);
             if (!username.equals("") && !password.equals("")) {
-                TbladminJpaController adminJpa = new TbladminJpaController(emf);
+                AdminJpaController adminJpa = new AdminJpaController(emf);
                 if (adminJpa.checkLogin(username, password)) {
                     HttpSession session = request.getSession();
                     session.setAttribute(Constant.ATT_ADMIN, Constant.ADMIN);
-                    url = Constant.ADMIN_PAGE;
+                    url = Constant.ADMIN_HOME_PAGE;
                 } else {
-                    request.setAttribute("ERROR", "Invalid email or password !!");
+                    request.setAttribute(Constant.ATT_ERROR, "Email hoặc password không đúng !!");
                 }
             } else {
-                request.setAttribute("ERROR", "Please input your email and password !!");
+                request.setAttribute(Constant.ATT_ERROR, "Vui lòng nhập email và password !!");
             }
             request.getRequestDispatcher(url).forward(request, response);
         } catch (Exception e) {
             log("ERROR at " + Constant.LOGIN_ADMIN_SERVLET + ": " + e.getMessage());
-            response.sendRedirect(Constant.LOGIN_PAGE);
+            response.sendRedirect(Constant.ERROR_PAGE);
+        }finally{
+            out.close();
         }
     }
 

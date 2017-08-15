@@ -5,8 +5,9 @@
  */
 package hd.controller;
 
-import hd.JPA.TblprojectJpaController;
-import hd.entity.Tblproject;
+import hd.JPA.IdeaBookPhotoJpaController;
+import hd.JPA.ProjectJpaController;
+import hd.entity.Project;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.tomcat.util.bcel.Constants;
 
 /**
  *
@@ -46,22 +46,31 @@ public class LoadProjectsServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             HttpSession session = request.getSession();
-            int status = Integer.parseInt(request.getParameter(Constant.PARAM_STATUS));
-            session.removeAttribute(Constant.ATT_PROJECT_LIST);
-            String url = Constant.LOGIN_PAGE;
-            if (session.getAttribute(Constant.ATT_ADMIN) != null) {
-                TblprojectJpaController projectJpa = new TblprojectJpaController(emf);
-                List<Tblproject> list = new ArrayList<>();
-                if (status == Constant.STATUS_ACTIVE) {
-                    list = projectJpa.getProjectsByStatus(Constant.STATUS_ACTIVE);
-                    url = Constant.MANAGE_PROJECT_PAGE;
-                } else {
-                    list = projectJpa.getProjectsByStatus(-1);
-                    url = Constant.BLOCK_PROJECTS_PAGE;
-                }
-                session.setAttribute(Constant.ATT_PROJECT_LIST, list);
+            int status = Constant.STATUS_WAIT;
+            String button = request.getParameter(Constant.BTN_ACTION).toLowerCase();
+            if (button.equals(Constant.APPROVED)) {
+                status = Constant.STATUS_OK;
             }
-            response.sendRedirect(url);
+            session.removeAttribute(Constant.ATT_PROJECT_LIST);
+            String url = Constant.LOGIN_ADMIN_PAGE;
+            if (session.getAttribute(Constant.ATT_ADMIN) != null) {
+                List<ProjectDTO> list = new ArrayList<>();
+                switch (status) {
+                    case Constant.STATUS_OK:
+                        loadProjectByStatus(list, Constant.STATUS_OK);
+                        url = Constant.PROJECT_PAGE;
+                        break;
+                    case Constant.STATUS_WAIT:
+                        loadProjectByStatus(list, Constant.STATUS_WAIT);
+                        url = Constant.PROJECT_PAGE;
+                        request.getServletContext().removeAttribute(Constant.APP_SCOPE_PROJECT);
+                        break;
+                    default:
+                        break;
+                }
+                session.setAttribute(Constant.ATT_LIST, list);
+            }
+            request.getRequestDispatcher(url).forward(request, response);
         } catch (Exception e) {
             log("ERROR at LoadProjectsServlet: " + e.getMessage());
             response.sendRedirect(Constant.ERROR_PAGE);
@@ -120,6 +129,29 @@ public class LoadProjectsServlet extends HttpServlet {
             em.getTransaction().rollback();
         } finally {
             em.close();
+        }
+    }
+
+    private void loadProjectByStatus(List<ProjectDTO> list, int status) {
+        ProjectJpaController projectJpa = new ProjectJpaController(emf);
+        IdeaBookPhotoJpaController ideabookPhotoJpa = new IdeaBookPhotoJpaController(emf);
+        List<Project> listProject = projectJpa.getProjectsByStatus(status);
+        //Load product categories
+        for (int i = 0; i < listProject.size(); i++) {
+            ProjectDTO project = new ProjectDTO();
+            project.setProject(listProject.get(i));
+            //Load ideabook categories
+            List<String> categories = ideabookPhotoJpa.getCategoryProjectByProjectId(listProject.get(i).getProjectId());
+            for (int j = 0; j < categories.size(); j++) {
+                project.setCategory(project.getCategory() + categories.get(j) + " ");
+            }
+            //Load ideabook styles
+            List<String> styles = ideabookPhotoJpa.getStyleProjectByProjectId(listProject.get(i).getProjectId());
+            for (int j = 0; j < styles.size(); j++) {
+                project.setStyle(project.getStyle() + styles.get(j) + " ");
+            }
+            //Add to list
+            list.add(project);
         }
     }
 
