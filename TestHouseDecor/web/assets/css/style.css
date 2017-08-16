@@ -1040,3 +1040,8 @@ cursor: pointer;
 .topic-content {
     padding: 10px;
 }
+
+.company-name {
+   font-weight: bold;
+   font-size: 18px;
+}
