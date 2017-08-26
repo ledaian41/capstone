@@ -34,8 +34,10 @@ public class LogoutServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
+            
             session.removeAttribute(Constant.ATT_USER);
             session.removeAttribute(Constant.ATT_ERROR_CREATE_PROJECT);
+            session.invalidate();
             request.getRequestDispatcher(Constant.HOME_PAGE).forward(request, response);
         }
     }

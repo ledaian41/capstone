@@ -133,7 +133,7 @@
         <servlet-class>hd.controller.ViewOverServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ViewProjectServlet</servlet-name>
+	<servlet-name>ViewProjectServlet</servlet-name>
         <servlet-class>hd.controller.ViewProjectServlet</servlet-class>
     </servlet>
     <servlet>
@@ -241,8 +241,32 @@
         <servlet-class>hd.controller.UpdateSellerDateServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoadInfoRegisterServlet</servlet-name>
+    	<servlet-name>LoadInfoRegisterServlet</servlet-name>
         <servlet-class>hd.controller.LoadInfoRegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyProductDetailServlet</servlet-name>
+        <servlet-class>hd.controller.MyProductDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddImageToProductServlet</servlet-name>
+        <servlet-class>hd.controller.AddImageToProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PromotionServlet</servlet-name>
+        <servlet-class>hd.controller.PromotionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewOrderServlet</servlet-name>
+        <servlet-class>hd.controller.ViewOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchProduct</servlet-name>
+        <servlet-class>hd.controller.SearchProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowAllPhotoServlet</servlet-name>
+        <servlet-class>hd.controller.ShowAllPhotoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
@@ -377,7 +401,7 @@
         <url-pattern>/ViewOverServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ViewProjectServlet</servlet-name>
+	<servlet-name>ViewProjectServlet</servlet-name>
         <url-pattern>/ViewProjectServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -487,6 +511,30 @@
     <servlet-mapping>
         <servlet-name>LoadInfoRegisterServlet</servlet-name>
         <url-pattern>/LoadInfoRegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyProductDetailServlet</servlet-name>
+        <url-pattern>/MyProductDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddImageToProductServlet</servlet-name>
+        <url-pattern>/AddImageToProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionServlet</servlet-name>
+        <url-pattern>/PromotionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewOrderServlet</servlet-name>
+        <url-pattern>/ViewOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProduct</servlet-name>
+        <url-pattern>/SearchProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowAllPhotoServlet</servlet-name>
+        <url-pattern>/ShowAllPhotoServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

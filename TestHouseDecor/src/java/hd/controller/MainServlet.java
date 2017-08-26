@@ -33,8 +33,9 @@ public class MainServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String button = request.getParameter("btAction");
-
-            if (button == null) {
+             
+            if(button==null){              
+                
                 request.getRequestDispatcher("home.jsp").forward(request, response);
             } 
             else if(button.equals("register")){

@@ -44,10 +44,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Promotion.findByEndDate", query = "SELECT p FROM Promotion p WHERE p.endDate = :endDate")})
 public class Promotion implements Serializable {
 
-    @JoinColumn(name = "seller_info_user_id", referencedColumnName = "user_id", nullable = false)
-    @ManyToOne(optional = false)
-    private SellerInfo sellerInfoUserId;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,6 +64,9 @@ public class Promotion implements Serializable {
     private Date endDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "promotionId")
     private Collection<PromotionDetail> promotionDetailCollection;
+    @JoinColumn(name = "seller_info_user_id", referencedColumnName = "user_id", nullable = false)
+    @ManyToOne(optional = false)
+    private SellerInfo sellerInfoUserId;
 
     public Promotion() {
     }
@@ -111,8 +110,7 @@ public class Promotion implements Serializable {
     public Date getStartDate() {
         return startDate;
     }
-    
-    public String getStartDateString() {
+	public String getStartDateString() {
         return new SimpleDateFormat("yyyy-MM-dd").format(startDate);
     }
 
@@ -122,7 +120,7 @@ public class Promotion implements Serializable {
 
     public Date getEndDate() {
         return endDate;
-    }
+	}
     
     public String getEndDateString() {
         return new SimpleDateFormat("yyyy-MM-dd").format(endDate);
@@ -139,6 +137,14 @@ public class Promotion implements Serializable {
 
     public void setPromotionDetailCollection(Collection<PromotionDetail> promotionDetailCollection) {
         this.promotionDetailCollection = promotionDetailCollection;
+    }
+
+    public SellerInfo getSellerInfoUserId() {
+        return sellerInfoUserId;
+    }
+
+    public void setSellerInfoUserId(SellerInfo sellerInfoUserId) {
+        this.sellerInfoUserId = sellerInfoUserId;
     }
 
     @Override
@@ -165,13 +171,6 @@ public class Promotion implements Serializable {
     public String toString() {
         return "hd.entity.Promotion[ id=" + id + " ]";
     }
-
-    public SellerInfo getSellerInfoUserId() {
-        return sellerInfoUserId;
-    }
-
-    public void setSellerInfoUserId(SellerInfo sellerInfoUserId) {
-        this.sellerInfoUserId = sellerInfoUserId;
-    }
+    
     
 }

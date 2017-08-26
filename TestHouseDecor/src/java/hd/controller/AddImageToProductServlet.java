@@ -7,9 +7,9 @@ package hd.controller;
 
 import hd.DAO.IdeaBookDAO;
 import hd.DAO.IdeaBookPhotoDAO;
-
+import hd.DAO.ProductDAO;
 import hd.entity.IdeaBookPhoto;
-import hd.service.HDSystem;
+import hd.entity.ProductPhoto;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +17,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,8 +30,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author cuk3t
  */
-@MultipartConfig
-public class AddImageToIdeaBookServlet extends HttpServlet {
+public class AddImageToProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,9 +45,7 @@ public class AddImageToIdeaBookServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=UTF-8");
-        
-        
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
             boolean isMultipart = ServletFileUpload.isMultipartContent(request);
@@ -72,49 +68,31 @@ public class AddImageToIdeaBookServlet extends HttpServlet {
                 while (iter.hasNext()) {
                     FileItem item = (FileItem) iter.next();
                     if (item.isFormField()) {
-                        params.put(item.getFieldName(), item.getString("UTF-8"));
-                        
+                        params.put(item.getFieldName(), item.getString("UTF-8"));                     
                             
                     } else if(!item.isFormField()){
                         try {
                             long time = System.currentTimeMillis();
                             String itemName = item.getName();
-                            fileName = time + itemName.substring(itemName.lastIndexOf("\\") + 1);
-                            
-                            String RealPath = getServletContext().getRealPath("/") + "images\\" + fileName;
-                            
+                            fileName = time + itemName.substring(itemName.lastIndexOf("\\") + 1) ;                           
+                            String RealPath = getServletContext().getRealPath("/") + "images\\" + fileName;                            
                             File savedFile = new File(RealPath);
-                            item.write(savedFile);
-                            
-                            String localPath = "D:\\Project\\TestHouseDecor-Merge\\web\\images\\" + fileName;                          
-//                            savedFile = new File(localPath);
-//                            item.write(savedFile);
-                                   
-                            
+                            item.write(savedFile);                            
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         
                     } 
-                }
-                
-                String ideaBookIdTemp = (String) params.get("txtIdeabookId");
-                int ideaBookId = Integer.parseInt(ideaBookIdTemp);
-                IdeaBookDAO ideabookDao = new IdeaBookDAO();
-                
-                String tilte = (String) params.get("newGalleryName");
-                
+                }                
+                String productID = (String) params.get("txtProductId");
+                System.out.println(productID);                
+                String tilte = (String) params.get("newGalleryName");                
                 String description = (String) params.get("GalleryDescription");
                 String url = "images/" + fileName;
-
-                IdeaBookPhotoDAO photoDAO = new IdeaBookPhotoDAO();
-                IdeaBookPhoto ideaBookPhoto = photoDAO.insertIdeaBookPhoto(tilte, description, url, ideaBookId);
+                ProductDAO productDao = new ProductDAO();
+                ProductPhoto productPhoto = productDao.insertProductPhoto(tilte, description, url, productID);
                 
-                HDSystem system = new HDSystem();
-                system.setNotificationIdeaBook(request);
-                response.sendRedirect("MyIdeaBookDetailServlet?txtIdeabookId="+ideaBookId);
-               
-
+                response.sendRedirect("MyProductDetailServlet?action=showDetail&txtProductID="+productID);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -43,16 +43,17 @@ public class CreateIdeaBookServlet extends HttpServlet {
             String title = request.getParameter("newGalleryName");
             String description = request.getParameter("GalleryDescription");
             IdeaBookDAO ideaBookDAO = new IdeaBookDAO();
-            IdeaBook entity = ideaBookDAO.getIdeaBookByTitleOrNull(title);
-            if(entity!=null){
-                request.setAttribute("ideaIsExist", "Trùng tên ý tưởng");
-                String url = "myIdeaBooks.jsp";
-                request.getRequestDispatcher(url).forward(request, response);
+            int count = ideaBookDAO.getIdeaBookByTitleOfUser(title, user.getUserId());
+            if(count>0){
+                request.setAttribute("ideaIsExist", title+" đã được sử dụng");               
+                request.setAttribute("description", description);
+                request.getRequestDispatcher("IdeaBooksServlet?txtUserID="+user.getUserId()).forward(request, response);
             }
             else {
                 
                 ideaBookDAO.insertIdeaBook(title, description, user);
-                request.getRequestDispatcher("IdeaBooksServlet?txtUserID="+user.getUserId()).forward(request, response);
+                response.sendRedirect("IdeaBooksServlet?txtUserID="+user.getUserId());
+               // request.getRequestDispatcher().forward(request, response);
             }
         }
     }

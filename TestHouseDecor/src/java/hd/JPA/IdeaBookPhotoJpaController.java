@@ -554,7 +554,6 @@ public class IdeaBookPhotoJpaController implements Serializable {
         List<IdeaBookPhoto> photos = new ArrayList<>();
         try {
             Query query = em.createNamedQuery("IdeaBookPhoto.loadApprovedPhotosByProjectId");
-            query.setMaxResults(1);
             query.setParameter("projectId", projectId);
             photos = query.getResultList();
         } catch (Exception e) {

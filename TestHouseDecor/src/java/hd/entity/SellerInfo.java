@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "seller_info", catalog = "house_decor", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SellerInfo.findAll", query = "SELECT s FROM SellerInfo s ORDER BY s.dueDate")
+    @NamedQuery(name = "SellerInfo.findAll", query = "SELECT s FROM SellerInfo s")
     , @NamedQuery(name = "SellerInfo.findByTaxNumber", query = "SELECT s FROM SellerInfo s WHERE s.taxNumber = :taxNumber")
     , @NamedQuery(name = "SellerInfo.findByStoreAddress", query = "SELECT s FROM SellerInfo s WHERE s.storeAddress = :storeAddress")
     , @NamedQuery(name = "SellerInfo.findBySellerName", query = "SELECT s FROM SellerInfo s WHERE s.sellerName = :sellerName")
@@ -42,9 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "SellerInfo.findByPhone", query = "SELECT s FROM SellerInfo s WHERE s.phone = :phone")
     , @NamedQuery(name = "SellerInfo.findByUserId", query = "SELECT s FROM SellerInfo s WHERE s.userId = :userId")})
 public class SellerInfo implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerInfoUserId")
-    private Collection<Promotion> promotionCollection;
 
     private static final long serialVersionUID = 1L;
     @Column(name = "tax_number", length = 45)
@@ -72,6 +69,8 @@ public class SellerInfo implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Professional professional;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerInfoUserId")
+    private Collection<Promotion> promotionCollection;
 
     public SellerInfo() {
     }
@@ -113,8 +112,7 @@ public class SellerInfo implements Serializable {
     public Date getStartDate() {
         return startDate;
     }
-    
-    public String getStartDateString() {
+	public String getStartDateString() {
         return new SimpleDateFormat("yyyy-MM-dd").format(startDate);
     }
     
@@ -132,7 +130,7 @@ public class SellerInfo implements Serializable {
 
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
-    }
+	}
     
     public String getDueDateString() {
         return new SimpleDateFormat("yyyy-MM-dd").format(dueDate);
@@ -175,6 +173,15 @@ public class SellerInfo implements Serializable {
         this.professional = professional;
     }
 
+    @XmlTransient
+    public Collection<Promotion> getPromotionCollection() {
+        return promotionCollection;
+    }
+
+    public void setPromotionCollection(Collection<Promotion> promotionCollection) {
+        this.promotionCollection = promotionCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -198,15 +205,6 @@ public class SellerInfo implements Serializable {
     @Override
     public String toString() {
         return "hd.entity.SellerInfo[ userId=" + userId + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Promotion> getPromotionCollection() {
-        return promotionCollection;
-    }
-
-    public void setPromotionCollection(Collection<Promotion> promotionCollection) {
-        this.promotionCollection = promotionCollection;
     }
     
 }

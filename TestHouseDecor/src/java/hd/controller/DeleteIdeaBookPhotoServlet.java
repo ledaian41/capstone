@@ -37,7 +37,10 @@ public class DeleteIdeaBookPhotoServlet extends HttpServlet {
             IdeaBookPhotoDAO ideaBookPhotoDAO = new IdeaBookPhotoDAO();
             int txtPhotoID = Integer.parseInt(request.getParameter(Constant.PARAM_PHOTO_ID));
             int txtIdeaBookID = Integer.parseInt(request.getParameter(Constant.PARAM_IDEABOOK_ID));
-            ideaBookPhotoDAO.deleteIdeaBookPhotoRef(txtPhotoID, txtIdeaBookID);
+            boolean deleted = ideaBookPhotoDAO.deleteIdeaBookPhotoRef(txtPhotoID, txtIdeaBookID);
+            if(deleted== false){
+            ideaBookPhotoDAO.detetePhotoInIdeaBook(txtPhotoID);
+            }
             request.getRequestDispatcher(Constant.HOME_PAGE).forward(request, response);
         } catch (Exception e) {
             log("Error at DeleteIdeabookPhotoServlet: " + e.getMessage());

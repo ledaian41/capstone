@@ -5,17 +5,21 @@
  */
 package hd.controller;
 
-import hd.DAO.CityDAO;
-import hd.DAO.UserDAO;
-import hd.entity.City;
-import hd.entity.User;
+import hd.DAO.PhotoDAO;
+import hd.JPA.CategoryJpaController;
+import hd.JPA.StyleJpaController;
+import hd.dto.PhotoDTO;
+import hd.entity.Category;
+import hd.entity.Style;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +30,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author cuk3t
  */
-public class UpdateProfileServlet extends HttpServlet {
+public class ShowAllPhotoServlet extends HttpServlet {
+
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestHouseDecorPU");
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,45 +45,28 @@ public class UpdateProfileServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
+            CategoryJpaController cateJpa = new CategoryJpaController(emf);
+            StyleJpaController styleJpa = new StyleJpaController(emf);
+            List<Category> categories = cateJpa.findCategoryEntities();
+            List<Style> styles = styleJpa.findStyleEntities();
             HttpSession session = request.getSession();
-
-            User user = (User) session.getAttribute("user");
-            int id = user.getUserId();
-            String firstname = request.getParameter("firstName");
-            String lastname = request.getParameter("lastName");
-            String dateStr = request.getParameter("birthDay");
-
-            SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
-            java.util.Date date = null;
-            try {
-                date = sdf1.parse(dateStr);
-            } catch (ParseException ex) {
-                Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
+            session.setAttribute("CATE", categories);
+            session.setAttribute("STYLE", styles);
+            PhotoDAO photoDao = new PhotoDAO();
+            List<PhotoDTO> listDTO = photoDao.showAllphoto();
+            request.setAttribute("listDTO", listDTO);
+            int itemsPerPage = 9;
+            int totalPages = (listDTO.size() + itemsPerPage - 1) / itemsPerPage;
+            List<Integer> pages = new ArrayList<Integer>();
+            for (int i = 1; i <= totalPages; i++) {
+                pages.add(i);
             }
-            java.sql.Date birthday = new Date(date.getTime());
-            String phone = request.getParameter("phone");
-            String gender = request.getParameter("gender");
-            boolean gender1 = gender.equals("1");
-            String nameCity = request.getParameter("city");
-
-            CityDAO cityDao = new CityDAO();
-            City city = cityDao.searchCity(nameCity);
-            String address = request.getParameter("address");
-            String aboutMe = request.getParameter("aboutMe");
-            UserDAO userDao = new UserDAO();
-            boolean check = false;
-            check = userDao.updateUser(id, firstname, lastname, birthday, phone, gender1, city, address, aboutMe);
-            if (check) {
-                request.getRequestDispatcher("ProfileServlet").forward(request, response);
-            } else {
-                request.getRequestDispatcher("error.jsp").forward(request, response);
-            }
+            request.setAttribute("itemsPerPage", itemsPerPage);
+            request.setAttribute("pages", pages);
+            request.getRequestDispatcher("photoAll.jsp").forward(request, response);
         }
     }
 
@@ -119,5 +108,19 @@ public class UpdateProfileServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    public void persist(Object object) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(object);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
 
 }

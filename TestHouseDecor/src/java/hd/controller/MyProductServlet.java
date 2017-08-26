@@ -47,10 +47,10 @@ public class MyProductServlet extends HttpServlet {
                 request.getRequestDispatcher("login.html").forward(request, response);
                 }else{
                         int userID = user.getUserId();
-                        String productID = request.getParameter("productCode")+ userID;                       
+                        String productID = request.getParameter("productCode")+"_"+ userID;                       
                         
                         String productName = request.getParameter("productName");
-                        String barCode = request.getParameter("barCode");
+                        
                         float price = Float.parseFloat(request.getParameter("price"));
                         int quantity = Integer.parseInt(request.getParameter("quantity"));
                         String size = request.getParameter("size");
@@ -60,8 +60,9 @@ public class MyProductServlet extends HttpServlet {
                         int category = Integer.parseInt(request.getParameter("category"));
                         String description = request.getParameter("description");
                         ProductDAO productDao = new ProductDAO();
-                        productDao.createProduct(productName, barCode, price, quantity, size, material, warranty, style, category, description, userID, productID);
-                        request.getRequestDispatcher("MyProductServlet?action=show&txtUserID="+userID+"").forward(request, response);
+                        productDao.createProduct(productName, price, quantity, size, material, warranty, style, category, description, userID, productID);
+                        response.sendRedirect("MyProductServlet?action=show&txtUserID="+userID+"");
+                       
                 }
             } else if(action.equals("show")){
                 
@@ -79,6 +80,22 @@ public class MyProductServlet extends HttpServlet {
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                     
                 }
+            } else if(action.equals("delete")){
+                if(session.getAttribute("user")==null){
+                request.getRequestDispatcher("login.html").forward(request, response);
+                }else {
+                    String productID = request.getParameter("txtProductId");
+                    int userID = user.getUserId();
+                    ProductDAO productDAO = new ProductDAO();
+                    Product dto = productDAO.getProductOfSeller(productID, userID);
+                    if(dto==null){
+                         request.getRequestDispatcher("error.jsp").forward(request, response);
+                    } else {
+                        productDAO.deleteProduct(productID);
+                        request.getRequestDispatcher("MyProductServlet?action=show&txtUserID="+userID).forward(request, response);
+                    }
+                }
+                
             }
             
         }

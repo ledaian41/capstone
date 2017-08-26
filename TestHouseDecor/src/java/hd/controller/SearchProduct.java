@@ -5,28 +5,22 @@
  */
 package hd.controller;
 
-import hd.DAO.CityDAO;
-import hd.DAO.UserDAO;
-import hd.entity.City;
-import hd.entity.User;
+import hd.DAO.ProductDAO;
+import hd.entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Collections;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author cuk3t
  */
-public class UpdateProfileServlet extends HttpServlet {
+public class SearchProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,45 +33,15 @@ public class UpdateProfileServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
-            HttpSession session = request.getSession();
-
-            User user = (User) session.getAttribute("user");
-            int id = user.getUserId();
-            String firstname = request.getParameter("firstName");
-            String lastname = request.getParameter("lastName");
-            String dateStr = request.getParameter("birthDay");
-
-            SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
-            java.util.Date date = null;
-            try {
-                date = sdf1.parse(dateStr);
-            } catch (ParseException ex) {
-                Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            java.sql.Date birthday = new Date(date.getTime());
-            String phone = request.getParameter("phone");
-            String gender = request.getParameter("gender");
-            boolean gender1 = gender.equals("1");
-            String nameCity = request.getParameter("city");
-
-            CityDAO cityDao = new CityDAO();
-            City city = cityDao.searchCity(nameCity);
-            String address = request.getParameter("address");
-            String aboutMe = request.getParameter("aboutMe");
-            UserDAO userDao = new UserDAO();
-            boolean check = false;
-            check = userDao.updateUser(id, firstname, lastname, birthday, phone, gender1, city, address, aboutMe);
-            if (check) {
-                request.getRequestDispatcher("ProfileServlet").forward(request, response);
-            } else {
-                request.getRequestDispatcher("error.jsp").forward(request, response);
-            }
+            String search = request.getParameter("txtSearch");
+            ProductDAO dao = new ProductDAO();
+            List<Product> list = dao.searchByName(search);
+            Collections.reverse(list);
+            request.setAttribute("listDTO", list);
+            request.getRequestDispatcher("product.jsp").forward(request, response);
         }
     }
 

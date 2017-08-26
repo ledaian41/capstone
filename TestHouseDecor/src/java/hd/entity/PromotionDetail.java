@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,18 +29,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "PromotionDetail.findAll", query = "SELECT p FROM PromotionDetail p")
     , @NamedQuery(name = "PromotionDetail.findByPromotionDetailId", query = "SELECT p FROM PromotionDetail p WHERE p.promotionDetailId = :promotionDetailId")
-    , @NamedQuery(name = "PromotionDetail.findByDiscount", query = "SELECT p FROM PromotionDetail p WHERE p.discount = :discount")
-    , @NamedQuery(name = "PromotionDetail.findByPromotionId", query = "SELECT p FROM PromotionDetail p WHERE p.promotionId.id = :promotionId")})
+    , @NamedQuery(name = "PromotionDetail.findByDiscount", query = "SELECT p FROM PromotionDetail p WHERE p.discount = :discount")})
 public class PromotionDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "promotion_detail_id", nullable = false)
     private Integer promotionDetailId;
-    @Basic(optional = false)
-    @Column(name = "discount", nullable = false)
-    private float discount;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "discount", precision = 12)
+    private Float discount;
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     @ManyToOne(optional = false)
     private Product productId;
@@ -53,11 +55,10 @@ public class PromotionDetail implements Serializable {
         this.promotionDetailId = promotionDetailId;
     }
 
-    public PromotionDetail(Integer promotionDetailId, float discount) {
+	public PromotionDetail(Integer promotionDetailId, float discount) {
         this.promotionDetailId = promotionDetailId;
         this.discount = discount;
     }
-
     public Integer getPromotionDetailId() {
         return promotionDetailId;
     }
@@ -66,11 +67,11 @@ public class PromotionDetail implements Serializable {
         this.promotionDetailId = promotionDetailId;
     }
 
-    public float getDiscount() {
+    public Float getDiscount() {
         return discount;
     }
 
-    public void setDiscount(float discount) {
+    public void setDiscount(Float discount) {
         this.discount = discount;
     }
 

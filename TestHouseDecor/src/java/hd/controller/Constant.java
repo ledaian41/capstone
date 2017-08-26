@@ -132,7 +132,7 @@ public class Constant implements Serializable {
     public static final int ROLE_MEMBER = 1;
     public static final int ROLE_PROFESSIONAL = 2;
     public static final int ROLE_SELLER = 3;
-    /*-------------------APPLICATION SCOPE--------------------------*/
+	/*-------------------APPLICATION SCOPE--------------------------*/
     public static final String APP_SCOPE_IDEABOOK = "IDEABOOK";
     public static final String APP_SCOPE_PROJECT = "PROJECT";
     public static final String APP_SCOPE_PRODUCT = "PRODUCT";

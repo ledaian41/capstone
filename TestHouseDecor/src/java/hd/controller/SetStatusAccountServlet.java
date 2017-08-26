@@ -55,7 +55,7 @@ public class SetStatusAccountServlet extends HttpServlet {
                         account.setStatus(Constant.STATUS_NOT_OK);
                         userJpa.edit(account);
                         url = Constant.LOAD_ACCOUNTS_SERVLET + "?" + Constant.BTN_ACTION + "=" + Constant.MEMBER;
-                        if (account.getRoleId().getRoleId() == Constant.ROLE_PROFESSIONAL) {
+                        if (account.getRoleId().getRoleId() != Constant.ROLE_MEMBER) {
                             url = Constant.LOAD_ACCOUNTS_SERVLET + "?" + Constant.BTN_ACTION + "=" + Constant.PROFESSIONAL;
                         }
                         break;

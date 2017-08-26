@@ -5,17 +5,14 @@
  */
 package hd.controller;
 
-import hd.DAO.CityDAO;
 import hd.DAO.UserDAO;
-import hd.entity.City;
+import hd.JPA.RoleJpaController;
+import hd.entity.Role;
 import hd.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author cuk3t
  */
-public class UpdateProfileServlet extends HttpServlet {
-
+public class RegisterSellerSevlet extends HttpServlet {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestHouseDecorPU");
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,40 +41,25 @@ public class UpdateProfileServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
             HttpSession session = request.getSession();
-
             User user = (User) session.getAttribute("user");
-            int id = user.getUserId();
-            String firstname = request.getParameter("firstName");
-            String lastname = request.getParameter("lastName");
-            String dateStr = request.getParameter("birthDay");
-
-            SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
-            java.util.Date date = null;
-            try {
-                date = sdf1.parse(dateStr);
-            } catch (ParseException ex) {
-                Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            java.sql.Date birthday = new Date(date.getTime());
-            String phone = request.getParameter("phone");
-            String gender = request.getParameter("gender");
-            boolean gender1 = gender.equals("1");
-            String nameCity = request.getParameter("city");
-
-            CityDAO cityDao = new CityDAO();
-            City city = cityDao.searchCity(nameCity);
-            String address = request.getParameter("address");
-            String aboutMe = request.getParameter("aboutMe");
-            UserDAO userDao = new UserDAO();
-            boolean check = false;
-            check = userDao.updateUser(id, firstname, lastname, birthday, phone, gender1, city, address, aboutMe);
-            if (check) {
-                request.getRequestDispatcher("ProfileServlet").forward(request, response);
+            String shopName = request.getParameter("shopName");
+            String shopAddress = request.getParameter("shopAddress");
+            String taxNumber = request.getParameter("taxNumber");
+            String shopPhone = request.getParameter("shopPhone");
+            RoleJpaController roleJpa = new RoleJpaController(emf);
+            Role role = roleJpa.findRole(3);
+            UserDAO dao = new UserDAO();
+            boolean check = dao.inserSeller(user.getUserId(), shopName, shopAddress, taxNumber, shopPhone, role);
+            if(check ==true){
+                User user1 = dao.getUserByEmail(user.getEmail());
+                session.removeAttribute(Constant.ATT_USER);
+                session.setAttribute(Constant.ATT_USER, user1);
+                response.sendRedirect("MyProductServlet?action=show&txtUserID="+user.getUserId()+"");
             } else {
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
+            
         }
     }
 

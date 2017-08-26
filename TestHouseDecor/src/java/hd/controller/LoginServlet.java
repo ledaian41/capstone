@@ -46,7 +46,11 @@ public class LoginServlet extends HttpServlet {
                 if (result) {
                     User user = dao.getUserByEmail(email);
                     session.setAttribute(Constant.ATT_USER, user);
-                    url = Constant.HOME_PAGE;
+                    if (user.getStatus() == -1) {
+                        request.setAttribute(Constant.ATT_ERROR, "Tài khoản bị khóa, vui lòng liên hệ với chúng tôi !!");
+                    } else {
+                        url = Constant.HOME_PAGE;
+                    }
                 } else {
                     request.setAttribute(Constant.ATT_ERROR, "Email hoặc Password không đúng !!");
                 }

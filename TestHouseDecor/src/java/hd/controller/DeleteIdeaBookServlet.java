@@ -6,12 +6,14 @@
 package hd.controller;
 
 import hd.DAO.IdeaBookDAO;
+import hd.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,11 +34,13 @@ public class DeleteIdeaBookServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("user");
             /* TODO output your page here. You may use following sample code. */
             int txtIdeaBookID = Integer.parseInt(request.getParameter(Constant.PARAM_IDEABOOK_ID)) ;
             IdeaBookDAO ideaBookDao = new IdeaBookDAO();
             ideaBookDao.deleteIdeaBook(txtIdeaBookID);
-            request.getRequestDispatcher("MyIdeaBooksServlet").forward(request, response);
+            request.getRequestDispatcher("IdeaBooksServlet?txtUserID="+user.getUserId()).forward(request, response);
         }
     }
 

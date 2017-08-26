@@ -10,6 +10,7 @@ import hd.dto.Cart;
 import hd.entity.OrderDetail;
 import hd.entity.Orders;
 import hd.entity.User;
+import hd.service.HDSystem;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,7 @@ import javax.persistence.Query;
  *
  * @author cuk3t
  */
-public class OrderDAO implements Serializable{
+public class OrderDAO implements Serializable {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestHouseDecorPU");
 
@@ -41,55 +42,61 @@ public class OrderDAO implements Serializable{
             em.close();
         }
     }
-    public boolean insertOrder(User user){
+
+    public boolean insertOrder(User user) {
         EntityManager em = emf.createEntityManager();
         try {
             Date time = new Date(System.currentTimeMillis());
-            int status =0;
-            
             Orders order = new Orders();
             order.setCreatedTime(time);
-           
             order.setUserId(user);
             em.getTransaction().begin();
             em.persist(order);
-            em.getTransaction().commit();     
+            em.getTransaction().commit();
+            //Send order
+            HDSystem system = new HDSystem();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    system.sendOrderEmail(order);
+                }
+            }).start();
+            //End send order
             return true;
         } catch (Exception e) {
             return false;
         }
-        
     }
-    public void inserOrderDetail(List<Cart> listCart){
+
+    public void inserOrderDetail(List<Cart> listCart) {
         EntityManager em = emf.createEntityManager();
-        
+
         String jpql = "SELECT o FROM Orders o WHERE o.orderId >= all(select p.orderId from Orders p)";
         Query query = em.createQuery(jpql);
 
         Orders order1 = (Orders) query.getSingleResult();
-        
+
         for (int i = 0; i < listCart.size(); i++) {
-                OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setOrderId(order1); 
-                float price = listCart.get(i).getProduct().getPrice()*listCart.get(i).getQuantity();
-                orderDetail.setPrice(price);
-                orderDetail.setProductId(listCart.get(i).getProduct());
-                orderDetail.setQuantity(listCart.get(i).getQuantity());
-               
-                persist(orderDetail);
-                
-                
-            }
-        
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setOrderId(order1);
+            float price = listCart.get(i).getProduct().getPrice() * listCart.get(i).getQuantity();
+            orderDetail.setPrice(price);
+            orderDetail.setProductId(listCart.get(i).getProduct());
+            orderDetail.setQuantity(listCart.get(i).getQuantity());
+
+            persist(orderDetail);
+
+        }
+
     }
-    
-    public List<Orders> getOrderByID(int ID){
+
+    public List<Orders> getOrderByID(int ID) {
         EntityManager em = emf.createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         try {
-             String jpql = "SELECT o FROM Orders o WHERE o.userId.userId = "+ID+" Order by o.orderId DESC";
-             Query query = em.createQuery(jpql);
-             return (List<Orders>) query.getResultList();
+            String jpql = "SELECT o FROM Orders o WHERE o.userId.userId = " + ID + " Order by o.orderId DESC";
+            Query query = em.createQuery(jpql);
+            return (List<Orders>) query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

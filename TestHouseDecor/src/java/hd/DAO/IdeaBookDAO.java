@@ -52,7 +52,7 @@ public class IdeaBookDAO implements Serializable {
         List<IdeaBook> list = new ArrayList<>();
         em.getEntityManagerFactory().getCache().evictAll();
         try {
-            String jpql = "SELECT i FROM IdeaBook i WHERE i.userId.userId = '" + userID + "' and i.isPublic in(0,1)and i.status in(0,1,-1)";
+            String jpql = "SELECT i FROM IdeaBook i WHERE i.userId.userId = '" + userID + "' and i.isPublic in(0,1)and i.status in(0,1,-1,-2)";
             Query query = em.createQuery(jpql);
             list = query.getResultList();
 //            em.setFlushMode(FlushModeType.COMMIT);
@@ -80,7 +80,13 @@ public class IdeaBookDAO implements Serializable {
             em.close();
         }
     }
-
+    public int getIdeaBookByTitleOfUser(String title, int userID){
+        EntityManager em = emf.createEntityManager();
+        String jpql = "SELECT i FROM IdeaBook i WHERE i.userId.userId = '" + userID + "' and i.title like '"+title+"'";
+        Query query = em.createQuery(jpql);        
+        return query.getResultList().size();
+        
+    }
     public boolean insertIdeaBook(String title, String descripsion, User userId) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -92,7 +98,7 @@ public class IdeaBookDAO implements Serializable {
                 ideabook = new IdeaBook();
                 ideabook.setTitle(title);
                 ideabook.setDescription(descripsion);
-                ideabook.setStatus(0);
+                ideabook.setStatus(-2);
 
                 ideabook.setUserId(userId);
                 em.getTransaction().begin();
@@ -189,7 +195,7 @@ public class IdeaBookDAO implements Serializable {
                 IdeaBookPhotoRef ideaBookPhotoRef = list.get(i);
                 photoDao.deleteIdeaBookPhotoRef(ideaBookPhotoRef.getIdeaBookPhoto().getPhotoId(), id);
             }
-            entity.setStatus(-2);
+            entity.setStatus(2);
             em.persist(entity);
             em.getTransaction().commit();
             return true;

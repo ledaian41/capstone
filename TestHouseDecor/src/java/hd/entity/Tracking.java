@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Tracking.findByCount", query = "SELECT t FROM Tracking t WHERE t.count = :count")
     , @NamedQuery(name = "Tracking.findByLastUpdate", query = "SELECT t FROM Tracking t WHERE t.lastUpdate = :lastUpdate")
     , @NamedQuery(name = "Tracking.findByUserId", query = "SELECT t FROM Tracking t WHERE t.trackingPK.userId = :userId")
-    , @NamedQuery(name = "Tracking.findOutDateTracking", query = "SELECT t FROM Tracking t WHERE FUNCTION('DATEDIFF', :today, t.lastUpdate ) > :outdateDays AND t.user.userId = :userId")
+	, @NamedQuery(name = "Tracking.findOutDateTracking", query = "SELECT t FROM Tracking t WHERE FUNCTION('DATEDIFF', :today, t.lastUpdate ) > :outdateDays AND t.user.userId = :userId")
     , @NamedQuery(name = "Tracking.findByCategoryId", query = "SELECT t FROM Tracking t WHERE t.trackingPK.categoryId = :categoryId")})
 public class Tracking implements Serializable {
 

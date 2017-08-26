@@ -46,7 +46,68 @@ public class PhotoDAO implements Serializable{
         }
     }
     
-    
+    public List<PhotoDTO> showAllphoto(){
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        PhotoDTO dto = new PhotoDTO();
+        List<PhotoDTO> listPhoto = new ArrayList<>();
+        try {
+            
+            Connection conn = MyConnection.getConn();
+            String sql = "select i.photo_id, i.url, i.project_id, p.project_name, u.user_id, u1.email , i.style_id \n" +
+                            "from idea_book_photo i, project p, professional u, user u1\n" +
+                            "where u1.user_id=u.user_id and u1.status=1 \n" +
+                            "and p.project_id = i.project_id and u.user_id= p.professional_user_id\n" +
+                            "order by photo_id DESC";
+            stm = conn.prepareStatement(sql);
+            
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                dto = new PhotoDTO();
+                int photoID = Integer.parseInt(rs.getString("photo_id"));              
+                String url = rs.getString("url");               
+                int projectID = Integer.parseInt(rs.getString("project_id"));               
+                String projectName= rs.getString("project_name");          
+                int userID = Integer.parseInt(rs.getString("user_id"));        
+                String email= rs.getString("email");
+                int style_id = Integer.parseInt(rs.getString("style_id"));
+                dto.setPhotoID(photoID);
+                dto.setUrl(url);
+                dto.setProjectID(projectID);
+                dto.setProjectName(projectName);
+                dto.setUserID(userID);
+                dto.setEmail(email);
+                dto.setStyleId(style_id);
+                listPhoto.add(dto);
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PhotoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PhotoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+    return listPhoto;
+        
+    }
     public List<PhotoDTO> displayListPhoto(){
     
         Connection con = null;

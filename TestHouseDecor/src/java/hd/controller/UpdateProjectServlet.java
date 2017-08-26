@@ -68,15 +68,13 @@ public class UpdateProjectServlet extends HttpServlet {
 
                 ProjectJpaController projectJpa = new ProjectJpaController(emf);
                 Project currentProject = projectJpa.findProject(projectId);
-                projectJpa.edit(new Project(projectId,
-                        projectName,
-                        projectAddress,
-                        projectCost,
-                        projectWebsite,
-                        projectYear,
-                        projectKey,
-                        currentProject.getStatus(),
-                        professional));
+                currentProject.setProjectName(projectName);
+                currentProject.setAddress(projectAddress);
+                currentProject.setCost(projectCost);
+                currentProject.setWebsite(projectWebsite);
+                currentProject.setYear(projectYear);
+                currentProject.setKeywords(url);
+                projectJpa.edit(currentProject);
 
                 url = Constant.VIEW_MY_PROJECT_DETAIL_SERVLET + "?projectId=" + projectId;
             }
